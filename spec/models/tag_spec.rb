@@ -55,6 +55,15 @@ RSpec.describe Tag, type: :model do
       #"Math" keyword is downcased too added this way (through Tag save)
       assert_equal(tag.keywords.pluck(:phrase).join('').scan(/[A-Z]/).length, 0)
     end
+    it 'can be single or multiple words' do
+      tag = @tag
+      expect(tag.keywords.count).to eq(6)
+      tag.key_words << "Arts & Crafts"
+      tag.save
+      expect(tag.key_words.count).to eq(7)
+      expect(tag.keywords.count).to eq(7)
+      expect(Keyword.last.phrase).to eq("arts & crafts")
+    end
   end
   context "key_words vs keywords" do
     it "key_words are not downcased, only keywords resulting from Tag save" do
