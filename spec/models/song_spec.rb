@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Song, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "validations" do
+    it{should validate_presence_of(:id)}
+  end
+  context "associations" do
+
+  end
 end
