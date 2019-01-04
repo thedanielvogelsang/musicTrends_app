@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Keyword, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "validations" do
+    it{should validate_presence_of(:context)}
+    it{should validate_presence_of(:key_words)}
+  end
+  context "associations" do
+    it{should have_many(:keyword_taggings)}
+    it{should have_many(:keywords)}
+  end
 end
