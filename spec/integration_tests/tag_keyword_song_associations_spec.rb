@@ -15,12 +15,13 @@ RSpec.describe "Tag Keyword Song Integration Tests" do
     )
   end
   describe "tags with keywords that" do
-    context "are linked via keyword_song_matches" do
+    context "are linked to songs via song_taggings" do
       it "can call songs" do
+        SongTagging.create(song_id: @song.id, tag_id: @tag.id)
         expect(@tag.songs.first).to eq(@song)
       end
     end
-    context " are linked to songs via keyword_song_matches" do
+    context "are NOT linked to songs via song_taggings" do
       it "can't call songs" do
         expect(@tag.songs.empty?).to be true
       end
