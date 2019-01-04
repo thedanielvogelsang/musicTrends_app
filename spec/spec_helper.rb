@@ -44,6 +44,27 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  RSpec.configure do |config|
+  config.failure_color = :cyan
+  config.success_color = :yellow
+  config.pending_color = :magenta
+  config.fixed_color = :blue
+  config.detail_color = :black
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:all) do
+    # Sidekiq::Worker.clear_all
+    DatabaseCleaner.clean
+  end
+
+  config.after(:all) do
+    DatabaseCleaner.clean
+  end
+end
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin
