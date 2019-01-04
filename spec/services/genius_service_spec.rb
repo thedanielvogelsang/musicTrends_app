@@ -8,10 +8,12 @@ RSpec.describe GeniusService do
     end
   end
   context "utility" do
-    it "can get songs given a query" do
-      query = "Go tell it on the mountain"
-      api_return = GeniusService.new.get_songs(query)
-      byebug
+    it "#get_songs can get songs given a query" do
+      VCR.use_cassette "/cassettes/services/love" do
+        query = "Love"
+        api_return = GeniusService.new.get_songs(query)
+        assert_equal(20, api_return.length)
+      end
     end
   end
 end
