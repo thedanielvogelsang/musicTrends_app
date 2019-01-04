@@ -1,7 +1,7 @@
 class Api::V1::SongsController < ApplicationController
   def index
     if params[:query]
-      render json: GeniusService.new.get_songs(params[:query]), status: 202
+      paginate json: GeniusService.new.get_songs(params[:query]), status: 202, per_page: 10
     else
       error = "Try a different query, that one's stale"
       render json: {error: error}, status: 404
