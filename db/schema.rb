@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_04_173017) do
+ActiveRecord::Schema.define(version: 2019_01_04_195240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "keyword_taggings", force: :cascade do |t|
+    t.bigint "keyword_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["keyword_id"], name: "index_keyword_taggings_on_keyword_id"
+    t.index ["tag_id"], name: "index_keyword_taggings_on_tag_id"
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string "phrase"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "searches", force: :cascade do |t|
     t.string "text"
@@ -42,6 +57,15 @@ ActiveRecord::Schema.define(version: 2019_01_04_173017) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "context"
+    t.string "key_words", array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "keyword_taggings", "keywords"
+  add_foreign_key "keyword_taggings", "tags"
   add_foreign_key "song_searches", "searches"
   add_foreign_key "song_searches", "songs"
 end
