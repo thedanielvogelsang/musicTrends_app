@@ -10,7 +10,8 @@ class SongWorker
     song = Song.find(@song_id)
     word_count = song.word_dict
     @refs.each do |ref|
-      wrd_cnt = WordCounter.new.count_words(ref)
+      ref = ref[:annotations][0][:body][:dom][:children][0][:children]
+      wrd_cnt = WordCounter.new("Song", @song_id, ref).count_words
       wrd_cnt.each do |k, v|
         word_count[k] ? word_count[k] += v : word_count[k] = v
       end

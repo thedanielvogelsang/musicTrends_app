@@ -53,7 +53,7 @@ RSpec.describe SongWorker, type: :model do
         song = Song.find(@song.id)
         expect(hash).to_not eq(song.word_dict)
         expect(song.word_dict.empty?).to be false
-        expect(song.word_dict.length).to eq(2)
+        expect(song.word_dict.length).to eq(117)
       end
     end
   end
