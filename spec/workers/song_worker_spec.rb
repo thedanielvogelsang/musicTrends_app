@@ -24,6 +24,12 @@ RSpec.describe SongWorker, type: :model do
         expect(swork.refs.class).to eq(Array)
       end
     end
+    it "requires only a single param to initialize" do
+      expect{ SongWorker.new }.to raise_error(ArgumentError)
+      expect{ SongWorker.new(1) }.to_not raise_error
+      expect{ SongWorker.new(nil, 'longs string to strip apart') }.to_not raise_error
+      # expect(SongWorker.new).to_not raise_error(ArgumentError)
+    end
     it "initializes without an API call to find referent annotations" do
       VCR.use_cassette "/workers/britney_song_worker" do
         sworker = SongWorker.new(@song.id)

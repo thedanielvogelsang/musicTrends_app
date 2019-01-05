@@ -2,7 +2,7 @@ class SongWorker
   include Words
   attr_reader :song_id, :refs
 
-  def initialize(song_id, refs = nil)
+  def initialize(song_id, refs=nil)
     @song_id = song_id
     @refs = refs
   end
@@ -107,6 +107,18 @@ class SongWorker
                 .split(' ')
                 .map{|w| w.downcase}
     title.each do |t|
+      if !CommonWords::WORDS.include?(t)
+        add_word_to_dictionary(t)
+      end
+    end
+  end
+
+  def add_artist_to_corpus
+    artist = Song.find(song_id)
+                .artist_name
+                .split(' ')
+                .map{|w| w.downcase}
+    artist.each do |t|
       if !CommonWords::WORDS.include?(t)
         add_word_to_dictionary(t)
       end
