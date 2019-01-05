@@ -1,2 +1,2 @@
-def SongWorker
+class SongWorker
 end
