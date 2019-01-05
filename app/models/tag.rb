@@ -3,6 +3,8 @@ class Tag < ApplicationRecord
   validates_presence_of :key_words
   has_many :keyword_taggings
   has_many :keywords, through: :keyword_taggings
+  has_many :song_taggings
+  has_many :songs, through: :song_taggings
 
   after_save :create_or_find_keywords
 

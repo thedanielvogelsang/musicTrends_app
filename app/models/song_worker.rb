@@ -1,0 +1,2 @@
+class SongWorker
+end
