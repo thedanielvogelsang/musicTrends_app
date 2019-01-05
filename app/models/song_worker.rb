@@ -2,7 +2,7 @@ class SongWorker
   include Words
   attr_reader :song_id, :refs
 
-  def initialize(song_id, refs=nil)
+  def initialize(song_id)
     @song_id = song_id
     @refs = refs
   end
