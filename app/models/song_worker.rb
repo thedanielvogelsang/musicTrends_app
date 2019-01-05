@@ -1,4 +1,5 @@
 class SongWorker
+  include Words
   attr_reader :song_id, :refs
 
   def initialize(song_id)
@@ -20,4 +21,18 @@ class SongWorker
     song.save
   end
 
+  def find_trends
+    save_highfreq_words_as_keywords
+  end
+
+  def save_highfreq_words_as_keywords
+    freq_words_in_dict = Song.find(@song_id)
+                              .word_dict
+                              .select{|k,v| v.to_i > 3}
+    freq_words_in_dict.each do |frqword|
+      if !CommonWords::WORDS.include?(frqword)
+        Keyword.find_or_create_by(phrase: frqword)
+      end
+    end
+  end
 end

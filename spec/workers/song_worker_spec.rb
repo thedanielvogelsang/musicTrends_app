@@ -56,5 +56,23 @@ RSpec.describe SongWorker, type: :model do
         expect(song.word_dict.length).to eq(117)
       end
     end
+    it "#save_highfreq_words_as_keywords saves key words as Keywords" do
+      VCR.use_cassette "/workers/britney_song_worker" do
+        expect(Keyword.count).to eq(0)
+        sw = SongWorker.new(@song.id)
+        sw.update_or_create_word_list
+        sw.save_highfreq_words_as_keywords
+        expect(Keyword.count > 0).to be true
+      end
+    end
+    it "#save_highfreq_words_as_keywords also links song and keyword together" do
+      VCR.use_cassette "/workers/britney_song_worker" do
+        expect(@song.keywords)
+        sw = SongWorker.new(@song.id)
+        sw.update_or_create_word_list
+        sw.save_highfreq_words_as_keywords
+        expect(@song.keywords)
+      end
+    end
   end
 end
