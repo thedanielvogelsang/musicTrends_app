@@ -1,11 +1,11 @@
 class Keyword < ApplicationRecord
-  validates_presence_of :phrase, uniqueness: true, :case_sensitive => false
+  validates :phrase, presence: true, uniqueness: true
   has_many :keyword_taggings
   has_many :tags, through: :keyword_taggings
 
-  before_save :downcase_phrase
+  before_validation :downcase_phrase
 
   def downcase_phrase
-    self.phrase = self.phrase.downcase
+    self.phrase = self.phrase.downcase if self.phrase
   end
 end

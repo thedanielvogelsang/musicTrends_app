@@ -54,6 +54,9 @@ class SongWorker
                 .title
                 .split(' ')
                 .map{|w| w.downcase}
+    title.each do |t|
+      k = Keyword.find_or_create_by()
+    end
 
   end
 
