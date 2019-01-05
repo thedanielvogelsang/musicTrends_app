@@ -1,4 +1,5 @@
 class WordCounter
+  attr_reader :ref
 
   def initialize(record_type, id, ref)
     # can be Song, Search, or Lyrics (later) looking for word count

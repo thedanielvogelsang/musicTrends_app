@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/stympy/faker.git
+  revision: e315adf872f7bdb31d31addc82d326f61fad9f06
+  branch: master
+  specs:
+    faker (1.9.1)
+      i18n (>= 0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -192,6 +200,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   byebug
   database_cleaner
+  faker!
   faraday
   figaro
   kaminari
