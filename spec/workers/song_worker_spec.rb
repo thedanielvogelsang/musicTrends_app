@@ -1,4 +1,5 @@
 require 'rails_helper'
+include Words
 
 RSpec.describe SongWorker, type: :model do
   describe "basic functionality" do
@@ -49,7 +50,7 @@ RSpec.describe SongWorker, type: :model do
         hash = @song.word_dict
         expect(hash.empty?).to be true
         sw = SongWorker.new(@song.id).get_referents
-        sw.update_or_create_word_dict
+        sw.update_or_create_word_dict_from_referents
         song = Song.find(@song.id)
         expect(hash).to_not eq(song.word_dict)
         expect(song.word_dict.empty?).to be false
@@ -68,7 +69,7 @@ RSpec.describe SongWorker, type: :model do
       VCR.use_cassette "/workers/britney_song_worker" do
         expect(Keyword.count).to eq(0)
         sw = SongWorker.new(@song.id).get_referents
-        sw.update_or_create_word_dict
+        sw.update_or_create_word_dict_from_referents
         sw.save_highfreq_words_as_keywords
         expect(Keyword.count > 0).to be true
       end
@@ -77,9 +78,75 @@ RSpec.describe SongWorker, type: :model do
       VCR.use_cassette "/workers/britney_song_worker" do
         expect(@song.keywords.empty?).to be true
         sw = SongWorker.new(@song.id).get_referents
-        sw.update_or_create_word_dict
+        sw.update_or_create_word_dict_from_referents
         sw.save_highfreq_words_as_keywords
         expect(@song.keywords.empty?).to be false
+      end
+    end
+    it "order of operations" do
+      VCR.use_cassette "/workers/britney_song_worker" do
+        sw = SongWorker.new(@song.id)
+        # no word_dict nor keyword association
+        expect(@song.word_dict.keys.empty?).to be true
+        expect(@song.keywords.empty?).to be true
+        sw.get_referents_and_update_word_dict
+        # Songworker.get_referents_and_update_word_dict updates word_dict
+        song = Song.find(@song.id)
+        expect(song.word_dict.keys.empty?).to be false
+        # but doesnt create associations
+        expect(song.keywords.empty?).to be true
+
+        # run #save_highfreq_words_as_keywords
+        sw.save_highfreq_words_as_keywords
+        song = Song.find(@song.id)
+          ct = song.keywords.count
+          key_ct = Keyword.count
+          expect(ct > 0).to be true
+        # creates new keywordSongMatches and Keywords given buzzwords
+        sw.find_and_save_buzzwords
+          if song.keywords.count > ct
+            expect(Keyword.count > key_ct).to be true
+          end
+      end
+    end
+  end
+  describe "advanced sync" do
+    before(:each) do
+      @song = Song.create(
+        id: 1052,
+        title: "Song Title",
+        artist_id: 12,
+        artist_name: "Britney Spears",
+        annotation_ct: 3,
+      )
+    end
+    it "can find and associate keywords given a list of buzzwords" do
+      VCR.use_cassette "/workers/britney_song_worker" do
+        words = Words::Buzzwords::BUZZWORDS
+        sw = SongWorker.new(@song.id)
+        byebug
+        # no word_dict nor keyword association
+        expect(@song.word_dict.keys.empty?).to be true
+        expect(@song.keywords.empty?).to be true
+        sw.get_referents_and_update_word_dict
+        # Songworker.get_referents_and_update_word_dict updates word_dict
+        song = Song.find(@song.id)
+        expect(song.word_dict.keys.empty?).to be false
+        # but doesnt create associations
+        expect(song.keywords.empty?).to be true
+
+        # run #save_highfreq_words_as_keywords
+        sw.save_highfreq_words_as_keywords
+          song = Song.find(@song.id)
+          ct = song.keywords.count
+          expect(ct > 0).to be true
+          print(song.keywords.count)
+        # creates new keywordSongMatches
+        sw.find_and_save_buzzwords
+          print(song.keywords.count)
+          if song.keywords.count > ct
+            expect(Keyword.count > key_ct).to be true
+          end
       end
     end
   end

@@ -34,4 +34,7 @@ module Words
   module Products
     PRODUCTS = Datapoints::FakerData.products
   end
+  module Buzzwords
+    BUZZWORDS = Datapoints::FakerData.buzzwords
+  end
 end

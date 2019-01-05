@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Song, type: :model do
   before(:each) do
     @song = Song.create(
-      id: 1234,
+      id: 1052,
       title: "Song Title",
       artist_id: 12,
       artist_name: "Brittney Spears",
@@ -21,7 +21,7 @@ RSpec.describe Song, type: :model do
   end
   context "utility" do
     it "can call all attrs" do
-      expect(@song.id).to eq(1234)
+      expect(@song.id).to eq(1052)
       expect(@song.artist_id).to eq(12)
       expect(@song.artist_name).to eq("Brittney Spears")
       expect(@song.annotation_ct).to eq(3)
@@ -40,6 +40,25 @@ RSpec.describe Song, type: :model do
     end
   end
   context "word_dict usage" do
-
+    describe "key_words" do
+      it "can call top counted words from corpus" do
+        VCR.use_cassette "/workers/britney_song_worker" do
+          SongWorker.new(@song.id).get_referents_and_update_word_dict
+          song = Song.find(@song.id)
+          sorted_dict = song.word_dict.sort_by{|k, v| v}.reverse[0...10].to_h
+          assert_equal(sorted_dict, song.key_words)
+        end
+      end
+      it "can return different counts of words" do
+        VCR.use_cassette "/workers/britney_song_worker" do
+          SongWorker.new(@song.id).get_referents_and_update_word_dict
+          song = Song.find(@song.id)
+          assert_equal(5, song.key_words(5).count)
+          assert_equal(15, song.key_words(15).count)
+          assert_equal(25, song.key_words(25).count)
+          assert_equal(100, song.key_words(100).count)
+        end
+      end
+    end
   end
 end

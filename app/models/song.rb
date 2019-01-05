@@ -11,4 +11,8 @@ class Song < ApplicationRecord
     artist_name
   end
 
+  def key_words(limit = 10)
+    word_dict.sort_by{|k,v| v}.reverse[0...limit].to_h
+  end
+
 end
