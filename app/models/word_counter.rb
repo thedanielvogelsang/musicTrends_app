@@ -31,7 +31,7 @@ class WordCounter
     end
 
     def clean_words
-      @ref = @ref.gsub(/[^a-zA-Z0-9.\- ]/, "").strip
+      @ref = @ref.gsub(/[^a-zA-Z0-9 ]/, "").split(' ').map{|w| w.downcase}.join(' ').strip
     end
 
     def clean_song_refs

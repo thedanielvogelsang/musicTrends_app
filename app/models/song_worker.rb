@@ -4,15 +4,24 @@ class SongWorker
 
   def initialize(song_id)
     @song_id = song_id
-    @refs = GeniusService.new.get_referents(song_id)
+    @refs = nil
   end
 
-  def update_or_create_word_list
-    song = Song.find(@song_id)
+  def get_referents
+    @refs = GeniusService.new.get_referents(song_id)
+    return self
+  end
+
+  def self.update_with_refs_and_sync_song(song_id)
+    pseudoSelf = new(song_id).get_referents
+  end
+
+  def update_or_create_word_dict_from_referents
+    song = Song.find(song_id)
     word_count = song.word_dict
-    @refs.each do |ref|
+    refs.each do |ref|
       ref = ref[:annotations][0][:body][:dom][:children][0][:children]
-      wrd_cnt = WordCounter.new("Song", @song_id, ref).count_words
+      wrd_cnt = WordCounter.new("Song", song_id, ref).count_words
       wrd_cnt.each do |k, v|
         word_count[k] ? word_count[k] += v : word_count[k] = v
       end
@@ -21,18 +30,125 @@ class SongWorker
     song.save
   end
 
-  def find_trends
+  def add_words_to_song(new_words_hash)
+    song = Song.find(song_id)
+    word_count = song.word_dict
+    new_words_hash.each do |word, ct|
+      word_count[word] ? word_count[word] = word_count[word].to_i + ct : word_count[word] = ct
+    end
+    song.word_dict = word_count
+    song.save
+  end
+
+  def add_word_to_dictionary(w)
+    song = Song.find(song_id)
+    word_dict = song.word_dict
+    word_dict[w] ? word_dict[w] = word_dict[w].to_i + 1 : word_dict[w] = 1
+    song.update(word_dict: word_dict)
+  end
+
+  def get_referents_and_update_word_dict
+    get_referents
+    update_or_create_word_dict_from_referents
+  end
+
+  def sync_song
     save_highfreq_words_as_keywords
+    save_title_and_artist_keywords
+    find_and_match_keywords
   end
 
   def save_highfreq_words_as_keywords
-    freq_words_in_dict = Song.find(@song_id)
+    freq_words_in_dict = Song.find(song_id)
                               .word_dict
-                              .select{|k,v| v.to_i > 3}
+                              .select{|k,v| v.to_i >= 3}
     freq_words_in_dict.keys.each do |frqword|
-      if !CommonWords::WORDS.include?(frqword)
-        k = Keyword.find_or_create_by(phrase: frqword)
-        KeywordSongMatch.search_and_add(k.id, @song_id)
+      if !CommonWords::WORDS.include?(frqword.downcase)
+        k = Keyword.find_or_create_by(phrase: frqword.downcase)
+        KeywordSongMatch.search_and_add(k.id, song_id)
+      end
+    end
+  end
+
+  def save_title_and_artist_keywords
+    save_title_keywords
+    save_artist_keywords
+  end
+
+  def save_title_keywords
+    title = Song.find(song_id)
+                .title
+                .split(' ')
+                .map{|w| w.downcase}
+    title.each do |t|
+      if !CommonWords::WORDS.include?(t)
+        k = Keyword.find_or_create_by(phrase: t)
+        KeywordSongMatch.search_and_add(k.id, song_id)
+        add_word_to_dictionary(t)
+      end
+    end
+  end
+
+  def save_artist_keywords
+    song = Song.find(song_id)
+    artist_name = song.artist_name
+                      .split(' ')
+                      .map{|w| w.downcase}
+    artist_name.each do |t|
+        word_dict = song.word_dict
+        k = Keyword.find_or_create_by(phrase: t)
+        KeywordSongMatch.search_and_add(k.id, song_id)
+    end
+  end
+
+  def add_title_to_corpus
+    title = Song.find(song_id)
+                .title
+                .split(' ')
+                .map{|w| w.downcase}
+    title.each do |t|
+      if !CommonWords::WORDS.include?(t)
+        add_word_to_dictionary(t)
+      end
+    end
+  end
+
+  def add_artist_to_corpus
+    artist = Song.find(song_id)
+                .artist_name
+                .split(' ')
+                .map{|w| w.downcase}
+    artist.each do |t|
+      if !CommonWords::WORDS.include?(t)
+        add_word_to_dictionary(t)
+      end
+    end
+  end
+
+  def find_and_match_keywords
+    find_and_save_names
+    find_and_save_products
+    find_and_save_buzzwords
+  end
+
+  def find_and_save_products
+    song = Song.find(song_id)
+    #compared against downcased words
+    Products::PRODUCTS.each do |word|
+      if song.word_dict.keys.include?(word)
+        k = Keyword.find_or_create_by(phrase: word)
+        KeywordSongMatch.search_and_add(k.id, song_id)
+      end
+    end
+  end
+
+  def find_and_save_buzzwords
+    song = Song.find(song_id)
+    #compared against downcased words
+    Buzzwords::BUZZWORDS.each do |word|
+      if song.word_dict.keys.include?(word)
+        k = Keyword.find_or_create_by(phrase: word)
+        KeywordSongMatch.search_and_add(k.id, song_id)
       end
     end
   end
