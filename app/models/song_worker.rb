@@ -4,7 +4,7 @@ class SongWorker
 
   def initialize(song_id)
     @song_id = song_id
-    @refs = refs
+    @refs = nil
   end
 
   def get_referents
