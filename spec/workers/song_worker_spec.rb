@@ -143,7 +143,8 @@ RSpec.describe SongWorker, type: :model do
         annotation_ct: 3,
       )
     end
-    it "can find and associate keywords given a list of buzzwords" do
+    it "#find_and_save_buzzwords
+              associates keywords given a list of buzzwords" do
       VCR.use_cassette "/workers/queen_buzzwords" do
         words = Words::Buzzwords::BUZZWORDS
         expect(words.include?("sexual")).to be true
@@ -180,7 +181,8 @@ RSpec.describe SongWorker, type: :model do
           end
       end
     end
-    it "can find and associate keywords given a list of products" do
+    it "#find_and_save_products (w/ add_title_to_corpus)
+              associates keywords given a list of products" do
       VCR.use_cassette "/workers/ipod_products_proof" do
         # Eric Bellinger's `IPod on Shuffle`
         song = Song.create(

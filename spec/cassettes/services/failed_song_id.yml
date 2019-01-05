@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.genius.com/songs/0?per_page=50
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - CompuServe Classic/1.22
+      Accept:
+      - application/json
+      Host:
+      - api.genius.com
+      Authorization:
+      - Bearer WPE5-lEMGcjBKmYDgnZZQZtsv6O_onWAea6n7y7Fzu74kewYC2Om4Sp3aB9zptWb
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sat, 05 Jan 2019 21:37:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d3017eabf5e8de32f22159d6a70982d151546724259; expires=Sun, 05-Jan-20
+        21:37:39 GMT; path=/; domain=.genius.com; HttpOnly
+      Status:
+      - 404 Not Found
+      Cache-Control:
+      - no-cache
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET, PUT, POST, OPTIONS, DELETE
+      Access-Control-Allow-Headers:
+      - Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Content-Type,
+        Accept, X-Auth-Token, Authorization
+      X-Runtime:
+      - '4'
+      Via:
+      - 1.1 vegur
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 4949165dfe54c7d7-DEN
+    body:
+      encoding: ASCII-8BIT
+      string: '{"meta":{"status":404,"message":"404 Not Found"}}'
+    http_version: 
+  recorded_at: Sat, 05 Jan 2019 21:37:39 GMT
+recorded_with: VCR 4.0.0

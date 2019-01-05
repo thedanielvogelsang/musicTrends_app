@@ -10,7 +10,7 @@ RSpec.describe KeywordTagging, type: :model do
       keyword = Keyword.create(phrase: "Hormones")
       tag = Tag.create(context: "High School", key_words: ["Pimple", "crush", "pizza", "football", "classes", "parties"])
       KeywordTagging.create(keyword_id: keyword.id, tag_id: tag.id)
-      expect(tag.keywords.pluck(:phrase).include?('Hormones')).to be true
+      expect(tag.keywords.pluck(:phrase).include?('hormones')).to be true
     end
     it "can be added to a tag" do
       keyword = Keyword.create(phrase: "Hormones")

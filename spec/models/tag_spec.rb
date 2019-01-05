@@ -33,10 +33,6 @@ RSpec.describe Tag, type: :model do
       KeywordTagging.create(keyword_id: keyword.id, tag_id: @tag.id)
       expect(@tag.keywords.count).to eq(7)
       expect(Keyword.count).to eq(7)
-      #and this keyword however (created outside Tag) allows capitalization
-      match = /[A-Z]/.match(Keyword.pluck(:phrase).join(''))
-      expect(match.length).to eq(1)
-      expect(match[0]).to eq("H")
     end
   end
   context "key_words" do
