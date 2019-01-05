@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_04_222506) do
+ActiveRecord::Schema.define(version: 2019_01_05_002907) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "keyword_taggings", force: :cascade do |t|
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(version: 2019_01_04_222506) do
     t.integer "annotation_ct"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.hstore "word_dict", default: {}
   end
 
   create_table "tags", force: :cascade do |t|

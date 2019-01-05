@@ -24,8 +24,20 @@ RSpec.describe Song, type: :model do
       expect(@song.artist_name).to eq("Brittney Spears")
       expect(@song.annotation_ct).to eq(3)
     end
+    it "can utilize and store data in its word dictionary" do
+      expect(@song.update(word_dict: {'key' => 'value'})).to be true
+      expect(@song.word_dict['key']).to eq('value')
+    end
+    it "word dictionary responds to string not symbol" do
+      expect(@song.update(word_dict: {'key' => 'value'})).to be true
+      assert_nil(@song.word_dict[:key])
+      expect(@song.word_dict['key']).to eq('value')
+    end
     it "can call artist and get artist name" do
       expect(@song.artist).to eq(@song.artist_name)
     end
+  end
+  context "word_dict usage" do
+
   end
 end
