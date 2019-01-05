@@ -113,7 +113,7 @@ RSpec.describe SongWorker, type: :model do
   describe "advanced sync" do
     before(:each) do
       @song = Song.create(
-        id: 1052,
+        id: 85260,
         title: "Song Title",
         artist_id: 12,
         artist_name: "Britney Spears",
@@ -121,10 +121,10 @@ RSpec.describe SongWorker, type: :model do
       )
     end
     it "can find and associate keywords given a list of buzzwords" do
-      VCR.use_cassette "/workers/britney_song_worker" do
+      VCR.use_cassette "/workers/queen_buzzwords" do
         words = Words::Buzzwords::BUZZWORDS
+        expect(words.include?("sexual")).to be true
         sw = SongWorker.new(@song.id)
-        byebug
         # no word_dict nor keyword association
         expect(@song.word_dict.keys.empty?).to be true
         expect(@song.keywords.empty?).to be true
@@ -132,19 +132,27 @@ RSpec.describe SongWorker, type: :model do
         # Songworker.get_referents_and_update_word_dict updates word_dict
         song = Song.find(@song.id)
         expect(song.word_dict.keys.empty?).to be false
+        # word `sexual` is in corpus but not > 3 times
+        expect(song.key_words.keys.include?("sexual")).to be false
+        expect(song.word_dict.keys.include?("sexual")).to be true
+        assert_equal(song.word_dict["sexual"], '2')
         # but doesnt create associations
         expect(song.keywords.empty?).to be true
 
         # run #save_highfreq_words_as_keywords
+        key_ct = Keyword.count
         sw.save_highfreq_words_as_keywords
           song = Song.find(@song.id)
+          #keywords created here do not include "Sean"
           ct = song.keywords.count
           expect(ct > 0).to be true
-          print(song.keywords.count)
+          expect(Keyword.count > key_ct).to be true
+          key_ct = Keyword.count
+          expect(song.keywords.pluck(:phrase).include?("sexual")).to be false
         # creates new keywordSongMatches
         sw.find_and_save_buzzwords
-          print(song.keywords.count)
           if song.keywords.count > ct
+            expect(song.keywords.pluck(:phrase).include?("sexual")).to be true
             expect(Keyword.count > key_ct).to be true
           end
       end

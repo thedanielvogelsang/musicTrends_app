@@ -39,7 +39,7 @@ class SongWorker
   def save_highfreq_words_as_keywords
     freq_words_in_dict = Song.find(song_id)
                               .word_dict
-                              .select{|k,v| v.to_i > 3}
+                              .select{|k,v| v.to_i >= 3}
     freq_words_in_dict.keys.each do |frqword|
       if !CommonWords::WORDS.include?(frqword)
         k = Keyword.find_or_create_by(phrase: frqword)
@@ -68,7 +68,7 @@ class SongWorker
     song = Song.find(song_id)
     Buzzwords::BUZZWORDS.each do |word|
       if song.word_dict.keys.include?(word)
-        k = Keyword.find__or_create_by(phrase: word)
+        k = Keyword.find_or_create_by(phrase: word)
         KeywordSongMatch.search_and_add(k.id, song_id)
       end
     end

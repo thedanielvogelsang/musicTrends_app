@@ -12,6 +12,7 @@ module Datapoints
     end
     def self.buzzwords
       products = Array.new
+      products.push("sexual")
       90.times{products.push(Faker::Hipster.word)}
       return products.uniq
     end
