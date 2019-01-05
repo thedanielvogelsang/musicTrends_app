@@ -23,8 +23,10 @@ class WordCounter
       case @type
       when "Song"
         @ref = clean_song_refs.join(' ')
-      when "Search"
-        @ref = clean_search_refs
+      when "Lyrics"
+        @ref = clean_lyrics_refs
+      else
+        nil
       end
     end
 
@@ -37,7 +39,7 @@ class WordCounter
         annot.class == String ? annot : nil
       end
     end
-    def clean_search_refs
+    def clean_lyrics_refs
       byebug
     end
 end
