@@ -29,14 +29,14 @@ RSpec.describe Api::V1::SongsController, type: :controller do
   end
 
   describe "GET #show" do
-    it "returns http success with errored song id" do
+    it "returns http success with incorrect song id" do
       VCR.use_cassette "/services/failed_song_id" do
         get :show, params: {song_id: 0}
         expect(response).to have_http_status(202)
         expect(JSON.parse(response.body)).to eq(nil)
       end
     end
-    it "returns http success with song id" do
+    it "returns http success given song id" do
       VCR.use_cassette "/services/chicago_25or624" do
         get :show, params: {song_id: @song_id}
         expect(response).to have_http_status(:success)

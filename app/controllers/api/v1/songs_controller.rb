@@ -16,4 +16,15 @@ class Api::V1::SongsController < ApplicationController
       render json: {error: "Record not found."}, status: 404
     end
   end
+
+  private
+
+    def safe_song(song)
+      return {
+          title: song[:full_title],
+          artist_name: song[:album][:artist][:name],
+          artist_id: song[:album][:artist][:id],
+          annotation_ct: song[:annotation_count]
+        }
+    end
 end
