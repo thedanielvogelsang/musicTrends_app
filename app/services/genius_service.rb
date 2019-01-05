@@ -29,4 +29,16 @@ class GeniusService
       return nil
     end
   end
+
+  def get_referents(id)
+    resp = @conn.get "/referents" do |req|
+      req.params["song_id"] = id
+    end
+    resp = JSON.parse(resp.body, symbolize_names: true)
+    if !resp[:response][:referents].empty?
+      return resp[:response][:referents]
+    else
+      return nil
+    end
+  end
 end

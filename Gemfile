@@ -31,6 +31,7 @@ gem 'kaminari'
 gem 'api-pagination'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
+gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 
 group :development, :test do
   gem 'database_cleaner'

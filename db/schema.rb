@@ -10,11 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_05_002907) do
+ActiveRecord::Schema.define(version: 2019_01_05_044812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "keyword_search_matches", force: :cascade do |t|
+    t.bigint "keyword_id"
+    t.bigint "search_id"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["keyword_id"], name: "index_keyword_search_matches_on_keyword_id"
+    t.index ["search_id"], name: "index_keyword_search_matches_on_search_id"
+  end
+
+  create_table "keyword_song_matches", force: :cascade do |t|
+    t.bigint "keyword_id"
+    t.bigint "song_id"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["keyword_id"], name: "index_keyword_song_matches_on_keyword_id"
+    t.index ["song_id"], name: "index_keyword_song_matches_on_song_id"
+  end
 
   create_table "keyword_taggings", force: :cascade do |t|
     t.bigint "keyword_id"
@@ -75,6 +95,10 @@ ActiveRecord::Schema.define(version: 2019_01_05_002907) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "keyword_search_matches", "keywords"
+  add_foreign_key "keyword_search_matches", "searches"
+  add_foreign_key "keyword_song_matches", "keywords"
+  add_foreign_key "keyword_song_matches", "songs"
   add_foreign_key "keyword_taggings", "keywords"
   add_foreign_key "keyword_taggings", "tags"
   add_foreign_key "song_searches", "searches"

@@ -16,6 +16,8 @@ RSpec.describe Song, type: :model do
   context "associations" do
     it {should have_many(:song_searches)}
     it {should have_many(:searches)}
+    it {should have_many(:keyword_song_matches)}
+    it {should have_many(:keywords)}
   end
   context "utility" do
     it "can call all attrs" do
