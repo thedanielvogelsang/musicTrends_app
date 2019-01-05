@@ -27,6 +27,8 @@ module Words
       'from',
       'by',
       'so',
+      'in',
+      'out',
     ]
   end
   module Products

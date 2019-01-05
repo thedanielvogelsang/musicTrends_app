@@ -29,9 +29,10 @@ class SongWorker
     freq_words_in_dict = Song.find(@song_id)
                               .word_dict
                               .select{|k,v| v.to_i > 3}
-    freq_words_in_dict.each do |frqword|
+    freq_words_in_dict.keys.each do |frqword|
       if !CommonWords::WORDS.include?(frqword)
-        Keyword.find_or_create_by(phrase: frqword)
+        k = Keyword.find_or_create_by(phrase: frqword)
+        KeywordSongMatch.search_and_add(k.id, @song_id)
       end
     end
   end

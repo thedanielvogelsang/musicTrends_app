@@ -10,10 +10,6 @@ RSpec.describe SongWorker, type: :model do
         artist_name: "Britney Spears",
         annotation_ct: 3,
       )
-      # @tag = Tag.create(
-      #   context: "High School",
-      #   key_words: ["Pimple", "crush", "pizza", "football", "classes", "parties"]
-      # )
     end
     it "can return song_id as attr_reader" do
       VCR.use_cassette "/workers/britney_song_worker" do
@@ -67,11 +63,11 @@ RSpec.describe SongWorker, type: :model do
     end
     it "#save_highfreq_words_as_keywords also links song and keyword together" do
       VCR.use_cassette "/workers/britney_song_worker" do
-        expect(@song.keywords)
+        expect(@song.keywords.empty?).to be true
         sw = SongWorker.new(@song.id)
         sw.update_or_create_word_list
         sw.save_highfreq_words_as_keywords
-        expect(@song.keywords)
+        expect(@song.keywords.empty?).to be false
       end
     end
   end
