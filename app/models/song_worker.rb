@@ -40,6 +40,13 @@ class SongWorker
     song.save
   end
 
+  def add_word_to_dictionary(w)
+    song = Song.find(song_id)
+    word_dict = song.word_dict
+    word_dict[w] ? word_dict[w] = word_dict[w].to_i + 1 : word_dict[w] = 1
+    song.update(word_dict: word_dict)
+  end
+
   def get_referents_and_update_word_dict
     get_referents
     update_or_create_word_dict_from_referents
@@ -77,6 +84,7 @@ class SongWorker
       if !CommonWords::WORDS.include?(t)
         k = Keyword.find_or_create_by(phrase: t)
         KeywordSongMatch.search_and_add(k.id, song_id)
+        add_word_to_dictionary(t)
       end
     end
   end
@@ -93,6 +101,18 @@ class SongWorker
     end
   end
 
+  def add_title_to_corpus
+    title = Song.find(song_id)
+                .title
+                .split(' ')
+                .map{|w| w.downcase}
+    title.each do |t|
+      if !CommonWords::WORDS.include?(t)
+        add_word_to_dictionary(t)
+      end
+    end
+  end
+
   def find_and_match_keywords
     find_and_save_names
     find_and_save_products
@@ -104,7 +124,7 @@ class SongWorker
     #compared against downcased words
     Products::PRODUCTS.each do |word|
       if song.word_dict.keys.include?(word)
-        k = Keyword.find__or_create_by(phrase: word)
+        k = Keyword.find_or_create_by(phrase: word)
         KeywordSongMatch.search_and_add(k.id, song_id)
       end
     end

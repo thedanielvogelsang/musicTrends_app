@@ -197,35 +197,85 @@ RSpec.describe SongWorker, type: :model do
         expect(song.word_dict.keys.empty?).to be true
         expect(song.keywords.empty?).to be true
         sw.get_referents_and_update_word_dict
+
+        # Songworker.get_referents_and_update_word_dict and
+              # add_title_to_corpus
+              # updates word_dict
+        sw.add_title_to_corpus
+        song = Song.find(song.id)
+        expect(song.word_dict.keys.empty?).to be false
+        expect(song.word_dict.keys.include?('ipod')).to be true
+        # word `ipod` is in corpus but not > 3 times
+        # but doesnt create associations
+        expect(song.keywords.empty?).to be true
+        # until save_title_and_artist is called:
         # saves IPod as part of songs word_dict
-        sw.save_title_and_artist_keywords
+        key_ct = Keyword.count
+        sw.save_highfreq_words_as_keywords
+          song = Song.find(song.id)
+          #keywords created here include iPod which will then be used later...
+          ct = song.keywords.count
+          expect(Keyword.count > key_ct).to be true
+          expect(song.keywords.pluck(:phrase).include?("ipod")).to be false
+        # find_and_save_products
+        # creates new keywordSongMatches
+        sw.find_and_save_products
+          if song.keywords.count > ct
+            expect(song.keywords.pluck(:phrase).include?("ipod")).to be true
+            expect(Keyword.count > key_ct).to be true
+          end
+      end
+    end
+    it "#save_title_and_artist_keywords updates keywords too" do
+      VCR.use_cassette "/workers/ipod_products_proof" do
+        # Eric Bellinger's `IPod on Shuffle`
+        song = Song.create(
+          id: 2035289,
+          title: "IPod on Shuffle",
+          artist_id: 1202,
+          artist_name: "Eric Bellinger",
+          annotation_ct: 0,
+        )
+        words = Words::Products::PRODUCTS
+        expect(words.include?("ipod")).to be true
+        sw = SongWorker.new(song.id)
+        # no word_dict nor keyword association
+        expect(song.word_dict.keys.empty?).to be true
+        expect(song.keywords.empty?).to be true
+        sw.get_referents_and_update_word_dict
+
         # Songworker.get_referents_and_update_word_dict and
               # save_title_and_artist_keywords
               # updates word_dict
         song = Song.find(song.id)
         expect(song.word_dict.keys.empty?).to be false
-        expect(song.word_dict.keys.include?('ipod')).to be true
+        expect(song.word_dict.keys.include?('ipod')).to be false
         # word `ipod` is in corpus but not > 3 times
-        expect(song.key_words.keys.include?("sexual")).to be false
-        expect(song.word_dict.keys.include?("sexual")).to be true
-        assert_equal(song.word_dict["sexual"], '2')
         # but doesnt create associations
         expect(song.keywords.empty?).to be true
+        # until save_title_and_artist is called:
+        # saves IPod as part of songs word_dict
+        sw.save_title_and_artist_keywords
 
+        song = Song.find(song.id)
+        expect(song.word_dict.keys.include?('ipod')).to be true
+        assert_equal(song.word_dict["ipod"], '1')
+        expect(song.keywords.empty?).to be false
+        expect(song.keywords.count).to eq(4)
         # run #save_highfreq_words_as_keywords
         key_ct = Keyword.count
+        expect(key_ct).to eq(4)
         sw.save_highfreq_words_as_keywords
-          song = Song.find(@song.id)
+          song = Song.find(song.id)
           #keywords created here do not include "Sean"
           ct = song.keywords.count
-          expect(ct > 0).to be true
           expect(Keyword.count > key_ct).to be true
-          key_ct = Keyword.count
-          expect(song.keywords.pluck(:phrase).include?("sexual")).to be false
+          expect(song.keywords.pluck(:phrase).include?("ipod")).to be true
+        # find_and_save_products
         # creates new keywordSongMatches
-        sw.find_and_save_buzzwords
+        sw.find_and_save_products
           if song.keywords.count > ct
-            expect(song.keywords.pluck(:phrase).include?("sexual")).to be true
+            expect(song.keywords.pluck(:phrase).include?("ipod")).to be true
             expect(Keyword.count > key_ct).to be true
           end
       end
