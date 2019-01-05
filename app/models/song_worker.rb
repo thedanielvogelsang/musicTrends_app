@@ -12,6 +12,10 @@ class SongWorker
     return self
   end
 
+  def self.update_with_refs_and_sync_song(song_id)
+    pseudoSelf = new(song_id).get_referents
+  end
+
   def update_or_create_word_dict_from_referents
     song = Song.find(song_id)
     word_count = song.word_dict

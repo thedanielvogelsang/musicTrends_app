@@ -1,6 +1,6 @@
 class Keyword < ApplicationRecord
   validates :phrase, presence: true, uniqueness: true
-  has_many :keyword_taggings
+  has_many :keyword_taggings, dependent: :destroy
   has_many :tags, through: :keyword_taggings
 
   before_validation :downcase_phrase

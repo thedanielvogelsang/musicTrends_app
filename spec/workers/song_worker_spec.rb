@@ -191,16 +191,21 @@ RSpec.describe SongWorker, type: :model do
           annotation_ct: 0,
         )
         words = Words::Products::PRODUCTS
-        expect(words.include?("iPod")).to be true
+        expect(words.include?("ipod")).to be true
         sw = SongWorker.new(song.id)
         # no word_dict nor keyword association
         expect(song.word_dict.keys.empty?).to be true
         expect(song.keywords.empty?).to be true
         sw.get_referents_and_update_word_dict
-        # Songworker.get_referents_and_update_word_dict updates word_dict
-        song = Song.find(@song.id)
+        # saves IPod as part of songs word_dict
+        sw.save_title_and_artist_keywords
+        # Songworker.get_referents_and_update_word_dict and
+              # save_title_and_artist_keywords
+              # updates word_dict
+        song = Song.find(song.id)
         expect(song.word_dict.keys.empty?).to be false
-        # word `sexual` is in corpus but not > 3 times
+        expect(song.word_dict.keys.include?('ipod')).to be true
+        # word `ipod` is in corpus but not > 3 times
         expect(song.key_words.keys.include?("sexual")).to be false
         expect(song.word_dict.keys.include?("sexual")).to be true
         assert_equal(song.word_dict["sexual"], '2')
