@@ -4,6 +4,7 @@ module Datapoints
   class FakerData
     def self.products
       products = Array.new
+      products.push('iPod')
       10.times{products.push(Faker::Appliance.brand)}
       10.times{products.push(Faker::App.name)}
       10.times{products.push(Faker::Device.model_name)}

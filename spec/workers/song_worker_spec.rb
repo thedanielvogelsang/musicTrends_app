@@ -157,5 +157,50 @@ RSpec.describe SongWorker, type: :model do
           end
       end
     end
+    it "can find and associate keywords given a list of products" do
+      VCR.use_cassette "/workers/ipod_products_proof" do
+        # Eric Bellinger's `IPod on Shuffle`
+        song = Song.create(
+          id: 2035289,
+          title: "IPod on Shuffle",
+          artist_id: 1202,
+          artist_name: "Eric Bellinger",
+          annotation_ct: 0,
+        )
+        words = Words::Products::PRODUCTS
+        expect(words.include?("iPod")).to be true
+        sw = SongWorker.new(song.id)
+        # no word_dict nor keyword association
+        expect(song.word_dict.keys.empty?).to be true
+        expect(song.keywords.empty?).to be true
+        sw.get_referents_and_update_word_dict
+        # Songworker.get_referents_and_update_word_dict updates word_dict
+        song = Song.find(@song.id)
+        expect(song.word_dict.keys.empty?).to be false
+        # word `sexual` is in corpus but not > 3 times
+        expect(song.key_words.keys.include?("sexual")).to be false
+        expect(song.word_dict.keys.include?("sexual")).to be true
+        assert_equal(song.word_dict["sexual"], '2')
+        # but doesnt create associations
+        expect(song.keywords.empty?).to be true
+
+        # run #save_highfreq_words_as_keywords
+        key_ct = Keyword.count
+        sw.save_highfreq_words_as_keywords
+          song = Song.find(@song.id)
+          #keywords created here do not include "Sean"
+          ct = song.keywords.count
+          expect(ct > 0).to be true
+          expect(Keyword.count > key_ct).to be true
+          key_ct = Keyword.count
+          expect(song.keywords.pluck(:phrase).include?("sexual")).to be false
+        # creates new keywordSongMatches
+        sw.find_and_save_buzzwords
+          if song.keywords.count > ct
+            expect(song.keywords.pluck(:phrase).include?("sexual")).to be true
+            expect(Keyword.count > key_ct).to be true
+          end
+      end
+    end
   end
 end

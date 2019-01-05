@@ -33,6 +33,7 @@ class SongWorker
 
   def sync_song
     save_highfreq_words_as_keywords
+    save_title_keywords
     find_and_match_keywords
   end
 
@@ -46,6 +47,14 @@ class SongWorker
         KeywordSongMatch.search_and_add(k.id, song_id)
       end
     end
+  end
+
+  def save_title_keywords
+    title = Song.find(song_id)
+                .title
+                .split(' ')
+                .map{|w| w.downcase}
+
   end
 
   def find_and_match_keywords
