@@ -54,7 +54,7 @@ RSpec.describe SongWorker, type: :model do
         song = Song.find(@song.id)
         expect(hash).to_not eq(song.word_dict)
         expect(song.word_dict.empty?).to be false
-        expect(song.word_dict.length).to eq(117)
+        expect(song.word_dict.length).to eq(106)
       end
     end
     it "can do the same with an integrated method call" do
@@ -62,7 +62,7 @@ RSpec.describe SongWorker, type: :model do
         sw = SongWorker.new(@song.id).get_referents_and_update_word_dict
         song = Song.find(@song.id)
         expect(song.word_dict.empty?).to be false
-        expect(song.word_dict.length).to eq(117)
+        expect(song.word_dict.length).to eq(106)
       end
     end
     it "#save_highfreq_words_as_keywords saves key words as Keywords" do
@@ -81,9 +81,32 @@ RSpec.describe SongWorker, type: :model do
         sw.update_or_create_word_dict_from_referents
         sw.save_highfreq_words_as_keywords
         expect(@song.keywords.empty?).to be false
+        expect(@song.keywords.count).to eq(5)
       end
     end
-    it "order of operations" do
+    it "#add_words_to_song adds a given word_hash param to song.word_dict" do
+      VCR.use_cassette "/workers/britney_song_worker" do
+        expect(@song.keywords.empty?).to be true
+        sw = SongWorker.new(@song.id).get_referents
+        sw.update_or_create_word_dict_from_referents
+        sw.save_highfreq_words_as_keywords
+        song = Song.find(@song.id)
+        expect(song.keywords.empty?).to be false
+
+        # assert this word doesnt already exist in corpus
+        assert_nil(song.word_dict['science'])
+        #find common word and increment it by 1
+        word = song.key_words.first[0]
+        value = song.key_words.first[1]
+        new_words_hash = {'Britney' => '1', 'science' => 2, word => 1}
+        sw.add_words_to_song(new_words_hash)
+        song = Song.find(song.id)
+        expect(song.word_dict['to']).to eq('10')
+        expect(song.word_dict['Britney']).to eq('1')
+        expect(song.word_dict['science']).to eq('2')
+      end
+    end
+    it "completes order of operations" do
       VCR.use_cassette "/workers/britney_song_worker" do
         sw = SongWorker.new(@song.id)
         # no word_dict nor keyword association

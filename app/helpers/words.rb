@@ -1,5 +1,6 @@
 require_relative '../../lib/datapoints'
 
+#used to house words and downcase Faker words from datapoints.rb
 module Words
   module CommonWords
     WORDS = [
@@ -32,9 +33,9 @@ module Words
     ]
   end
   module Products
-    PRODUCTS = Datapoints::FakerData.products
+    PRODUCTS = Datapoints::FakerData.products.map{|p| p.downcase}
   end
   module Buzzwords
-    BUZZWORDS = Datapoints::FakerData.buzzwords
+    BUZZWORDS = Datapoints::FakerData.buzzwords.map{|p| p.downcase}
   end
 end

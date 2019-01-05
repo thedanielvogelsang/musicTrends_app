@@ -26,6 +26,16 @@ class SongWorker
     song.save
   end
 
+  def add_words_to_song(new_words_hash)
+    song = Song.find(song_id)
+    word_count = song.word_dict
+    new_words_hash.each do |word, ct|
+      word_count[word] ? word_count[word] = word_count[word].to_i + ct : word_count[word] = ct
+    end
+    song.word_dict = word_count
+    song.save
+  end
+
   def get_referents_and_update_word_dict
     get_referents
     update_or_create_word_dict_from_referents
@@ -33,7 +43,7 @@ class SongWorker
 
   def sync_song
     save_highfreq_words_as_keywords
-    save_title_keywords
+    save_title_and_artist_keywords
     find_and_match_keywords
   end
 
@@ -42,11 +52,16 @@ class SongWorker
                               .word_dict
                               .select{|k,v| v.to_i >= 3}
     freq_words_in_dict.keys.each do |frqword|
-      if !CommonWords::WORDS.include?(frqword)
-        k = Keyword.find_or_create_by(phrase: frqword)
+      if !CommonWords::WORDS.include?(frqword.downcase)
+        k = Keyword.find_or_create_by(phrase: frqword.downcase)
         KeywordSongMatch.search_and_add(k.id, song_id)
       end
     end
+  end
+
+  def save_title_and_artist_keywords
+    save_title_keywords
+    save_artist_keywords
   end
 
   def save_title_keywords
@@ -55,9 +70,23 @@ class SongWorker
                 .split(' ')
                 .map{|w| w.downcase}
     title.each do |t|
-      k = Keyword.find_or_create_by()
+      if !CommonWords::WORDS.include?(t)
+        k = Keyword.find_or_create_by(phrase: t)
+        KeywordSongMatch.search_and_add(k.id, song_id)
+      end
     end
+  end
 
+  def save_artist_keywords
+    song = Song.find(song_id)
+    artist_name = song.artist_name
+                      .split(' ')
+                      .map{|w| w.downcase}
+    artist_name.each do |t|
+        word_dict = song.word_dict
+        k = Keyword.find_or_create_by(phrase: t)
+        KeywordSongMatch.search_and_add(k.id, song_id)
+    end
   end
 
   def find_and_match_keywords
@@ -68,6 +97,7 @@ class SongWorker
 
   def find_and_save_products
     song = Song.find(song_id)
+    #compared against downcased words
     Products::PRODUCTS.each do |word|
       if song.word_dict.keys.include?(word)
         k = Keyword.find__or_create_by(phrase: word)
@@ -78,6 +108,7 @@ class SongWorker
 
   def find_and_save_buzzwords
     song = Song.find(song_id)
+    #compared against downcased words
     Buzzwords::BUZZWORDS.each do |word|
       if song.word_dict.keys.include?(word)
         k = Keyword.find_or_create_by(phrase: word)
