@@ -1,5 +1,6 @@
 class MasterSearchJob
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
   def perform(song_params, search_params)
     begin

@@ -64,6 +64,10 @@ RSpec.configure do |config|
   config.after(:all) do
     DatabaseCleaner.clean
   end
+
+  config.before(:each) do
+    Sidekiq::Worker.clear_all
+  end
 end
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.

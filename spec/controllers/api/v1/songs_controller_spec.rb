@@ -34,7 +34,7 @@ RSpec.describe Api::V1::SongsController, type: :controller do
         VCR.use_cassette "/services/failed_song_id" do
           get :show, params: {song_id: 0}
           expect(response).to have_http_status(404)
-          expect(JSON.parse(response.body)).to eq(nil)
+          expect(JSON.parse(response.body)).to eq({"error"=>"RecordNotFound"})
         end
       end
       it "returns http success given song id" do
@@ -53,6 +53,17 @@ RSpec.describe Api::V1::SongsController, type: :controller do
             expect(Song.count).to eq(0)
             expect{Sidekiq::Worker.drain_all}.to_not raise_error
             expect(Song.count).to eq(1)
+          end
+        end
+        it "every ping updates songs and search counts" do
+          VCR.use_cassette "/services/chicago_25or624_and_britney" do
+            get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
+            get :show, params: {song_id: 85260, search: {text: "Brittney Spears"}}
+            expect(Song.count).to eq(0)
+            expect(MasterSearchJob.jobs.size).to eq(2)
+            expect{Sidekiq::Worker.drain_all}.to_not raise_error
+            expect(Song.count).to eq(2)
+            expect(Search.count).to eq(2)
           end
         end
       end
