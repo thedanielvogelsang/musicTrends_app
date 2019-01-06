@@ -4,7 +4,7 @@ require 'sidekiq/testing'
 RSpec.describe "MasterSearchJob", :type => :job do
   Sidekiq::Testing.inline! do
     context "initializing" do
-      it "requires song and search params" do
+      it "requires accurate song and search params" do
         MasterSearchJob.perform_async('art1', 'art2')
         assert_equal(1, MasterSearchJob.jobs.size)
         expect{Sidekiq::Worker.drain_all}.to raise_error(ActiveRecord::RecordNotFound)
@@ -15,7 +15,16 @@ RSpec.describe "MasterSearchJob", :type => :job do
         MasterSearchJob.perform_async(song_params, search_params)
         expect{Sidekiq::Worker.drain_all}.to_not raise_error
       end
-      it "creates a new Song and Search" do
+      it "cannot create song nor search with bad params" do
+        expect(Song.count).to eq(0)
+        expect(Search.count).to eq(0)
+        MasterSearchJob.perform_async('art1', 'art2')
+        assert_equal(1, MasterSearchJob.jobs.size)
+        expect{Sidekiq::Worker.drain_all}.to raise_error(ActiveRecord::RecordNotFound)
+        expect(Song.count).to eq(0)
+        expect(Search.count).to eq(0)
+      end
+      it "creates a new Song and Search given valid params" do
         expect(Song.count).to eq(0)
         expect(Search.count).to eq(0)
         song_params = {id: 28660, artist_id: 1230586, artist_name: "Artist 1", title: "Whatever", annotation_ct: 0}

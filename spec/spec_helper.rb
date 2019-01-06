@@ -45,7 +45,7 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   RSpec.configure do |config|
-  config.failure_color = :cyan
+  config.failure_color = :red
   config.success_color = :yellow
   config.pending_color = :magenta
   config.fixed_color = :blue
@@ -63,10 +63,6 @@ RSpec.configure do |config|
 
   config.after(:all) do
     DatabaseCleaner.clean
-  end
-
-  config.before(:each) do
-    Sidekiq::Worker.clear_all
   end
 end
 # The settings below are suggested to provide a good initial experience

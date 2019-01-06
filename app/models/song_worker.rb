@@ -12,8 +12,20 @@ class SongWorker
     return self
   end
 
-  def self.update_with_refs_and_sync_song(song_id)
-    pseudoSelf = new(song_id).get_referents
+  def self.confirm_referents_sync_song_and_find_trends(song_id)
+    self.confirm_referents_and_sync_song(song_id)
+    TrendJob.perform_async(song_id)
+  end
+
+  def self.confirm_referents_and_sync_song(song_id)
+    sw = new(song_id)
+    song = Song.find(song_id)
+    if !sw.confirm_last_update(song) && song.refs_found?
+      sw.sync_song
+    else
+      sw.get_referents_and_update_word_dict
+      sw.sync_song
+    end
   end
 
   def update_or_create_word_dict_from_referents
@@ -27,10 +39,11 @@ class SongWorker
       end
     end
     song.word_dict = word_count
+    song.refs_found = true
     song.save
   end
 
-  def add_words_to_song(new_words_hash)
+  def add_words_and_increment_count(new_words_hash)
     song = Song.find(song_id)
     word_count = song.word_dict
     new_words_hash.each do |word, ct|
@@ -40,24 +53,28 @@ class SongWorker
     song.save
   end
 
-  def add_word_to_dictionary(w)
+  def add_word_to_dictionary_if_not_there(w)
     song = Song.find(song_id)
     word_dict = song.word_dict
-    word_dict[w] ? word_dict[w] = word_dict[w].to_i + 1 : word_dict[w] = 1
+    word_dict[w].nil? ? word_dict[w] = 1 : nil
     song.update(word_dict: word_dict)
   end
 
+  #part one of calling a song
   def get_referents_and_update_word_dict
     get_referents
     update_or_create_word_dict_from_referents
   end
 
+#called at each Song ping at songs_controller#show
+  #ultimately serves to update keyword_song_matches
   def sync_song
     save_highfreq_words_as_keywords
     save_title_and_artist_keywords
     find_and_match_keywords
   end
 
+### FIRST SYNCHING -- SAVE REPEATED WORDS IN CORPUS AS KEYWORDs
   def save_highfreq_words_as_keywords
     freq_words_in_dict = Song.find(song_id)
                               .word_dict
@@ -70,6 +87,7 @@ class SongWorker
     end
   end
 
+### SECOND SYNCHING -- SAVE TITLE AND ARTIST NAME AS KEYWORDs
   def save_title_and_artist_keywords
     save_title_keywords
     save_artist_keywords
@@ -84,7 +102,7 @@ class SongWorker
       if !CommonWords::WORDS.include?(t)
         k = Keyword.find_or_create_by(phrase: t)
         KeywordSongMatch.search_and_add(k.id, song_id)
-        add_word_to_dictionary(t)
+        add_word_to_dictionary_if_not_there(t)
       end
     end
   end
@@ -95,12 +113,13 @@ class SongWorker
                       .split(' ')
                       .map{|w| w.downcase}
     artist_name.each do |t|
-        word_dict = song.word_dict
         k = Keyword.find_or_create_by(phrase: t)
         KeywordSongMatch.search_and_add(k.id, song_id)
+        add_word_to_dictionary_if_not_there(t)
     end
   end
 
+  # not used in app, but in tests / for future use potentially
   def add_title_to_corpus
     title = Song.find(song_id)
                 .title
@@ -108,7 +127,7 @@ class SongWorker
                 .map{|w| w.downcase}
     title.each do |t|
       if !CommonWords::WORDS.include?(t)
-        add_word_to_dictionary(t)
+        add_word_to_dictionary_if_not_there(t)
       end
     end
   end
@@ -120,11 +139,13 @@ class SongWorker
                 .map{|w| w.downcase}
     artist.each do |t|
       if !CommonWords::WORDS.include?(t)
-        add_word_to_dictionary(t)
+        add_word_to_dictionary_if_not_there(t)
       end
     end
   end
 
+### THIRD SYNCHING -- SEARCH FOR PRE-EXISTING KEYWORDs
+  #called at each Song ping at songs_controller#show
   def find_and_match_keywords
     find_and_save_names
     find_and_save_products
@@ -151,5 +172,27 @@ class SongWorker
         KeywordSongMatch.search_and_add(k.id, song_id)
       end
     end
+  end
+
+  def find_and_save_names
+    song = Song.find(song_id)
+    song_dict = song.word_dict
+    #Find words that follow the following potential-proper-noun regex pattern:
+    prop_nouns = @refs.map do |ref|
+      ref = ref[:annotations][0][:body][:dom][:children][0][:children]
+      ref.join('').scan(/(([A-Z]{1}\w+\s*){2,})/).map{|mtch| mtch[0]}.flatten
+    end
+    prop_nouns += song.title.scan(/(([A-Z]{1}\w+\s*){2,})/).map{|mtch| mtch[0]}
+    prop_nouns += song.artist_name.scan(/(([A-Z]{1}\w+\s*){2,})/).map{|mtch| mtch[0]}
+    prop_nouns.flatten.each do |n|
+      k = Keyword.find_or_create_by(phrase: n)
+      KeywordSongMatch.search_and_add(k.id, song_id)
+      add_word_to_dictionary_if_not_there(n)
+    end
+    return true
+  end
+
+  def confirm_last_update(song)
+    song.updated_at < DateTime.now - (60*60*24)
   end
 end
