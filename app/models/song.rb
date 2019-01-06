@@ -7,6 +7,8 @@ class Song < ApplicationRecord
   has_many :keyword_song_matches
   has_many :keywords, through: :keyword_song_matches
 
+  has_many :possible_taggings
+
   def artist
     artist_name
   end
@@ -36,6 +38,10 @@ class Song < ApplicationRecord
             .where(:songs => {id: id})
             .order("keyword_song_matches.count DESC")
             .limit(6).pluck(:phrase)
+  end
+
+  def possible_tags
+    Tag.joins(:possible_taggings).where(:possible_taggings => {song_id: id}).pluck(:id, :context)
   end
 
 end

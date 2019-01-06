@@ -86,7 +86,7 @@ RSpec.describe SongWorker, type: :model do
         sw.update_or_create_word_dict_from_referents
         sw.save_highfreq_words_as_keywords
         expect(@song.keywords.empty?).to be false
-        expect(@song.keywords.count).to eq(5)
+        expect(@song.keywords.count).to eq(4)
       end
     end
     it "#add_words_to_song adds a given word_hash param to song.word_dict" do
@@ -300,7 +300,7 @@ RSpec.describe SongWorker, type: :model do
         expect(Keyword.count).to eq(0)
         return_val = songworker.find_and_save_names
         expect(return_val).to eq(true)
-        expect(Keyword.count).to eq(4)
+        expect(Keyword.count).to eq(5)
         word_dict = Song.find(song.id).word_dict
         expect(word_dict.keys.map{|w| w.downcase}.include?(Keyword.pluck(:phrase).first)).to be true
         expect(word_dict.keys.map{|w| w.downcase}.include?(Keyword.pluck(:phrase).second)).to be true
@@ -327,8 +327,8 @@ RSpec.describe SongWorker, type: :model do
           sworker1.sync_song
           sworker2.sync_song
           expect(key_Ct).to_not eq(Keyword.count)
-          expect(Keyword.count).to eq(24)
-          expect(KeywordSongMatch.count).to eq(26)
+          expect(Keyword.count).to eq(27)
+          expect(KeywordSongMatch.count).to eq(29)
           #explained by two keywords matching both songs
           keys = Keyword.select{|k| k.keyword_song_matches.count > 1}
           expect(keys.count).to eq(2)

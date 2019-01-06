@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_06_204941) do
+ActiveRecord::Schema.define(version: 2019_01_06_230038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 2019_01_06_204941) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "possible_taggings", force: :cascade do |t|
+    t.bigint "song_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "count"
+    t.index ["song_id"], name: "index_possible_taggings_on_song_id"
+    t.index ["tag_id"], name: "index_possible_taggings_on_tag_id"
+  end
+
   create_table "searches", force: :cascade do |t|
     t.string "text"
     t.integer "search_type", default: 0
@@ -86,7 +96,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_204941) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.hstore "word_dict", default: {}
-    t.boolean "refs_found", default: true
+    t.boolean "refs_found", default: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -102,6 +112,8 @@ ActiveRecord::Schema.define(version: 2019_01_06_204941) do
   add_foreign_key "keyword_song_matches", "songs"
   add_foreign_key "keyword_taggings", "keywords"
   add_foreign_key "keyword_taggings", "tags"
+  add_foreign_key "possible_taggings", "songs"
+  add_foreign_key "possible_taggings", "tags"
   add_foreign_key "song_searches", "searches"
   add_foreign_key "song_searches", "songs"
   add_foreign_key "song_taggings", "songs"

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Tag Keyword Song Integration Tests" do
   before(:each) do
     @song = Song.create(
-      id: 1234,
+      id: 1052,
       title: "Song Title",
       artist_id: 12,
       artist_name: "Brittney Spears",
@@ -56,9 +56,25 @@ RSpec.describe "Tag Keyword Song Integration Tests" do
         expect(@tag.songs.last).to eq(new_song)
       end
     end
-    describe "create likely_taggings" do
-      it "" do
-        # expect(@tag).to be nil
+  end
+  context "tags with matching keywords to song corpus" do
+    describe "can create PossibleTagging associations" do
+      it "accurately pairs a likely tag with a song" do
+        VCR.use_cassette "workers/integration_tests" do
+          tag = Tag.create(context: "1990s",
+                    key_words: ["Britney Spears", "song", "back", "Justin", "skateboards"])
+          #song word_dict created and saved here
+          sworker = SongWorker.confirm_referents_and_sync_song(@song.id)
+          # worker returns trend data for console logging
+          return_trends = sworker.find_trends
+          expect(return_trends[:type]).to eq("Song")
+          expect(return_trends[:id]).to eq(1052)
+          expect(return_trends[:possible_taggings].count).to eq(0)
+
+          tworker = TagWorker.new(tag.id)
+          songs = tworker.match_likely_songs
+          expect(songs.first).to eq(Song.find(@song.id))
+        end
       end
     end
   end

@@ -13,8 +13,8 @@ class SongWorker
   end
 
   def self.confirm_referents_sync_song_and_find_trends(song_id)
-    self.confirm_referents_and_sync_song(song_id)
-    # TrendJob.perform_async(song_id)
+    sw = self.confirm_referents_and_sync_song(song_id)
+    # TrendJob.perform_async(sw.find_trends)
   end
 
   def self.confirm_referents_and_sync_song(song_id)
@@ -202,6 +202,8 @@ class SongWorker
       popular_words_in_corpus: song.most_popular_words,
       keyword_matches: song.keyword_match_count,
       important_keyword_matches: song.key_matches,
+      possible_taggings: song.possible_taggings,
+      possible_tags: song.possible_tags
     }
   end
 end
