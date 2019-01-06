@@ -7,11 +7,13 @@ class MasterSearchJob
     begin
     song = Song.find_or_create_by(id: song_params["id"])
     rescue
+      ActiveRecord::Base.connection.execute 'ROLLBACK'
       raise ActiveRecord::RecordNotUnique
     end
     begin
     search = Search.find_or_create_by(search_params)
     rescue
+      ActiveRecord::Base.connection.execute 'ROLLBACK'
       raise ActiveRecord::RecordNotFound
     end
     if song && search
