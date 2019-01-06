@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe Api::V1::SongsController, type: :controller do
   before(:each) do
@@ -27,21 +28,29 @@ RSpec.describe Api::V1::SongsController, type: :controller do
       end
     end
   end
-
-  describe "GET #show" do
-    it "returns http success with incorrect song id" do
-      VCR.use_cassette "/services/failed_song_id" do
-        get :show, params: {song_id: 0}
-        expect(response).to have_http_status(202)
-        expect(JSON.parse(response.body)).to eq(nil)
+  context "GET #show" do
+    describe "without sidekiq processing" do
+      it "returns http success with incorrect song id" do
+        VCR.use_cassette "/services/failed_song_id" do
+          get :show, params: {song_id: 0}
+          expect(response).to have_http_status(202)
+          expect(JSON.parse(response.body)).to eq(nil)
+        end
+      end
+      it "returns http success given song id" do
+        VCR.use_cassette "/services/chicago_25or624" do
+          get :show, params: {song_id: @song_id}
+          expect(response).to have_http_status(:success)
+        end
       end
     end
-    it "returns http success given song id" do
-      VCR.use_cassette "/services/chicago_25or624" do
-        get :show, params: {song_id: @song_id}
-        expect(response).to have_http_status(:success)
+    describe "WITH sidekiq processing" do
+      Sidekiq::Testing.inline! do
+        it "triggers MasterSearchJob" do
+          get :show, params: {song_id: @song_id, search: {}}
+          expect(response).to have_http_status(:success)
+        end
       end
     end
   end
-
 end

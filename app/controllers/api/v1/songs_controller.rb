@@ -12,6 +12,7 @@ class Api::V1::SongsController < ApplicationController
     if params[:song_id]
       song = GeniusService.new.get_song_info(params[:song_id])
       render json: song, status: 202
+      MasterSearchJob.perform_async(safe_song(song), safe_search)
     else
       render json: {error: "Record not found."}, status: 404
     end
@@ -26,5 +27,9 @@ class Api::V1::SongsController < ApplicationController
           artist_id: song[:album][:artist][:id],
           annotation_ct: song[:annotation_count]
         }
+    end
+
+    def safe_search
+      params.require(:search).permit(:text, :search_type)
     end
 end
