@@ -104,7 +104,7 @@ RSpec.describe SongWorker, type: :model do
         word = song.key_words.first[0]
         value = song.key_words.first[1]
         new_words_hash = {'Britney' => '1', 'science' => 2, word => 1}
-        sw.add_words_to_song(new_words_hash)
+        sw.add_words_and_increment_count(new_words_hash)
         song = Song.find(song.id)
         expect(song.word_dict['to']).to eq('10')
         expect(song.word_dict['Britney']).to eq('1')
@@ -286,6 +286,55 @@ RSpec.describe SongWorker, type: :model do
             expect(Keyword.count > key_ct).to be true
           end
       end
+    end
+    it "#can find and save 'names' to dictionary from regexp" do
+      VCR.use_cassette "/workers/ipod_products_proof" do
+        song = Song.create(
+          id: 2035289,
+          title: "IPod on Shuffle",
+          artist_id: 1202,
+          artist_name: "Eric Bellinger",
+          annotation_ct: 0,
+        )
+        songworker = SongWorker.new(song.id).get_referents
+        expect(Keyword.count).to eq(0)
+        return_val = songworker.find_and_save_names
+        expect(return_val).to eq(true)
+        expect(Keyword.count).to eq(4)
+        word_dict = Song.find(song.id).word_dict
+        expect(word_dict.keys.map{|w| w.downcase}.include?(Keyword.pluck(:phrase).first)).to be true
+        expect(word_dict.keys.map{|w| w.downcase}.include?(Keyword.pluck(:phrase).second)).to be true
+      end
+    end
+    it "#can create keywords from products, buzzwords,
+                        names, high_frequency words, and artist/title with one command" do
+        VCR.use_cassette "workers/all_tests_together" do
+          song = Song.create(
+            id: 2035289,
+            title: "IPod on Shuffle",
+            artist_id: 1202,
+            artist_name: "Eric Bellinger",
+            annotation_ct: 0,
+          )
+
+          sworker1 = SongWorker.new(@song.id)
+          sworker2 = SongWorker.new(song.id)
+          #initialize and create initial word dictionary
+          sworker1.get_referents_and_update_word_dict
+          sworker2.get_referents_and_update_word_dict
+          key_Ct = Keyword.count
+          expect(key_Ct).to eq(0)
+          sworker1.sync_song
+          sworker2.sync_song
+          expect(key_Ct).to_not eq(Keyword.count)
+          expect(Keyword.count).to eq(24)
+          expect(KeywordSongMatch.count).to eq(26)
+          #explained by two keywords matching both songs
+          keys = Keyword.select{|k| k.keyword_song_matches.count > 1}
+          expect(keys.count).to eq(2)
+          key1 = keys.first
+          expect(key1.keyword_song_matches.pluck(:song_id)).to eq([@song.id, song.id])
+        end
     end
   end
 end
