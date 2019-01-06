@@ -12,6 +12,14 @@ class SongWorker
     return self
   end
 
+  def self.confirm_referents_and_sync_song(song_id)
+    new(song_id)
+    if !confirm_referents
+      get_referents_and_update_word_dict
+    end
+    sync_song
+  end
+
   def self.update_with_refs_and_sync_song(song_id)
     pseudoSelf = new(song_id).get_referents
     sync_song
@@ -54,6 +62,7 @@ class SongWorker
     update_or_create_word_dict_from_referents
   end
 
+#called at each Song ping at songs_controller#show
   #should be called on all songs ?
   def sync_song
     save_highfreq_words_as_keywords
@@ -61,6 +70,7 @@ class SongWorker
     find_and_match_keywords
   end
 
+### FIRST SYNCHING -- SAVE REPEATED WORDS IN CORPUS AS KEYWORDs
   def save_highfreq_words_as_keywords
     freq_words_in_dict = Song.find(song_id)
                               .word_dict
@@ -73,7 +83,7 @@ class SongWorker
     end
   end
 
-  #called at each Song ping at songs_controller#show
+### SECOND SYNCHING -- SAVE TITLE AND ARTIST NAME AS KEYWORDs
   def save_title_and_artist_keywords
     save_title_keywords
     save_artist_keywords
@@ -130,6 +140,7 @@ class SongWorker
     end
   end
 
+### THIRD SYNCHING -- SEARCH FOR PRE-EXISTING KEYWORDs
   #called at eah Song ping at songs_controller#show
   def find_and_match_keywords
     find_and_save_names
@@ -167,6 +178,8 @@ class SongWorker
       ref = ref[:annotations][0][:body][:dom][:children][0][:children]
       ref.join('').scan(/(([A-Z]{1}\w+\s*){2,})/).map{|mtch| mtch[0]}.flatten
     end
+    prop_nouns + song.title.scan(/(([A-Z]{1}\w+\s*){2,})/).map{|mtch| mtch[0]}
+    prop_nouns + song.artist_name.scan(/(([A-Z]{1}\w+\s*){2,})/).map{|mtch| mtch[0]}
     prop_nouns.flatten.each do |n|
       k = Keyword.find_or_create_by(phrase: n)
       KeywordSongMatch.search_and_add(k.id, song_id)
