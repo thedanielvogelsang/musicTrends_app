@@ -1,4 +1,5 @@
 class MasterSearchJob
+  include SongSearchHelper
   include Sidekiq::Worker
   sidekiq_options retry: false
 
@@ -15,5 +16,6 @@ class MasterSearchJob
     end
     song = Song.find_or_create_by(song_params)
     search = Search.find_or_create_by(search_params)
+    sync_song_and_search(song.id, search.id)
   end
 end
