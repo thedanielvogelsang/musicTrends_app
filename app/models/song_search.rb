@@ -6,6 +6,6 @@ class SongSearch < ApplicationRecord
 
   private
     def add_initial_count
-      self.count = 1
+      self.count = 0
     end
 end

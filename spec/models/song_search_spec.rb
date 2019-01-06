@@ -17,7 +17,7 @@ RSpec.describe SongSearch, type: :model do
   end
   context "utility" do
     it "initializes with count = 1" do
-      expect(@songsearch.count).to eq(1)
+      expect(@songsearch.count).to eq(0)
     end
     it "allows songs and searches to be associated" do
       expect(@song.searches.first).to eq(@search)
