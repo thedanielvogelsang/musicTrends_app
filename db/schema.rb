@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_204941) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.hstore "word_dict", default: {}
-    t.boolean "refs_found"
+    t.boolean "refs_found", default: true
   end
 
   create_table "tags", force: :cascade do |t|
