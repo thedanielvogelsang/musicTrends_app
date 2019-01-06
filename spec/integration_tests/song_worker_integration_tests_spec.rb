@@ -52,6 +52,20 @@ RSpec.describe SongWorker do
           expect(song.refs_found?).to be true
         end
       end
+      it "#after creating keywords, it can find trends" do
+        VCR.use_cassette "workers/integration_tests" do
+          song = Song.first
+          sworker = SongWorker.confirm_referents_and_sync_song(song.id)
+          return_trends = sworker.find_trends
+          expect(return_trends[:type]).to eq("Song")
+          expect(return_trends[:id]).to eq(1052)
+          expect(return_trends[:playcount]).to eq(0)
+          expect(return_trends[:corpus_word_count]).to eq(124)
+          expect(return_trends[:popular_words_in_corpus].keys).to eq(['to', 'sean', 'in', 'of', 'a'])
+          expect(return_trends[:keyword_matches]).to eq(21)
+          expect(return_trends[:important_keyword_matches]).to eq(['back','flow', 'sean', 'song', 'title', 'big'])
+        end
+      end
     end
   end
 end

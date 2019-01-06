@@ -14,6 +14,7 @@ module Words
       'of',
       'as',
       'is',
+      'it',
       'be',
       'of',
       'that',
@@ -29,7 +30,7 @@ module Words
       'by',
       'so',
       'in',
-      'out',
+      'out'
     ]
   end
   module Products

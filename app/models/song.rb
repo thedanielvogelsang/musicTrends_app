@@ -15,4 +15,27 @@ class Song < ApplicationRecord
     word_dict.sort_by{|k,v| v}.reverse[0...limit].to_h
   end
 
+  def playcount
+    song_searches.sum(:count)
+  end
+
+  def word_count
+    word_dict.keys.count
+  end
+
+  def keyword_match_count
+    KeywordSongMatch.where(song_id: id).count
+  end
+
+  def most_popular_words
+    key_words(5)
+  end
+
+  def key_matches
+    Keyword.joins(:keyword_song_matches).joins(:songs)
+            .where(:songs => {id: id})
+            .order("keyword_song_matches.count DESC")
+            .limit(6).pluck(:phrase)
+  end
+
 end
