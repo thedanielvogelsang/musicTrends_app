@@ -33,7 +33,7 @@ RSpec.describe Api::V1::SongsController, type: :controller do
       it "returns http success with incorrect song id" do
         VCR.use_cassette "/services/failed_song_id" do
           get :show, params: {song_id: 0}
-          expect(response).to have_http_status(202)
+          expect(response).to have_http_status(404)
           expect(JSON.parse(response.body)).to eq(nil)
         end
       end
@@ -47,8 +47,13 @@ RSpec.describe Api::V1::SongsController, type: :controller do
     describe "WITH sidekiq processing" do
       Sidekiq::Testing.inline! do
         it "triggers MasterSearchJob" do
-          get :show, params: {song_id: @song_id, search: {}}
-          expect(response).to have_http_status(:success)
+          VCR.use_cassette "/services/chicago_25or624" do
+            get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
+            expect(response).to have_http_status(:success)
+            expect(Song.count).to eq(0)
+            expect{Sidekiq::Worker.drain_all}.to_not raise_error
+            expect(Song.count).to eq(1)
+          end
         end
       end
     end
