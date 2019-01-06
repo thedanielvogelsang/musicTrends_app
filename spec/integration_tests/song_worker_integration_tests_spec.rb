@@ -38,11 +38,13 @@ RSpec.describe SongWorker do
           song = Song.find(song.id)
           expect(song.word_dict.keys.include?(proper_name)).to be true
           expect(Keyword.where(phrase: "britney spears").count).to eq(1)
+
           #proves #save_artist_keywords ran
           expect(song.word_dict.keys.include?("britney")).to be true
           expect(Keyword.where(phrase: "britney").count).to eq(1)
           expect(song.word_dict.keys.include?("spears")).to be true
           expect(Keyword.where(phrase: "spears").count).to eq(1)
+
           # proves #save_title_words
           expect(song.word_dict.keys.include?("title")).to be true
           song = Song.first

@@ -12,6 +12,11 @@ class SongWorker
     return self
   end
 
+  def self.confirm_referents_sync_song_and_find_trends(song_id)
+    self.confirm_referents_and_sync_song(song_id)
+    TrendJob.perform_async(song_id)
+  end
+
   def self.confirm_referents_and_sync_song(song_id)
     sw = new(song_id)
     song = Song.find(song_id)

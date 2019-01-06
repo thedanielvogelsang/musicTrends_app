@@ -19,6 +19,7 @@ class MasterSearchJob
     if song && search
       song.update(song_params)
       sync_song_and_search(song.id, search.id)
+      # SongWorker.confirm_referents_sync_song_and_find_trends(song.id)
     end
   end
 end
