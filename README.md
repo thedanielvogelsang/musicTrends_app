@@ -214,6 +214,15 @@ params:
 `POST `http://localhost:3000/tags/``
 
 ```
+
+example `/songinfo` endpoint request with 'search' params to trigger SongWorker / TrendWorker:
+
+![alt text](public/songinfo_post.post_params.02.40 PM.png)
+
+and its subsequent return:
+
+![alt text](public/songinfo_post.post_return.jpg)
+
 ##Authors
 
 * **Daniel Vogelsang** - [GitHub](https://github.com/thedanielvogelsang)
