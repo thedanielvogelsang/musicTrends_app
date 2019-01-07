@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
     get 'songsearch', to: "searches#index", as: :songsearch, action: :index
-    get 'songs/:song_id', to: "searches#show", as: :songs, action: :show
+    get 'songinfo/:song_id', to: "searches#show", as: :songs, action: :show
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     namespace :api do
       namespace :v1 do
