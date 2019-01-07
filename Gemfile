@@ -27,7 +27,8 @@ gem 'faraday'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'kaminari'
+# gem 'kaminari'
+gem 'will_paginate', '~> 3.1.0'
 gem 'api-pagination'
 gem 'redis'
 gem 'sidekiq'

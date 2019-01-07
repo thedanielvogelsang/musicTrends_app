@@ -30,7 +30,13 @@ module Words
       'by',
       'so',
       'in',
-      'out'
+      'out',
+      "his",
+      "her",
+      "him",
+      "she",
+      "like",
+      "was",
     ]
   end
   module Products

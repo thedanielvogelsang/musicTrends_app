@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: https://musictrends.s3.amazonaws.com/logs/tags/4-2019-01-07%2011:37:00s
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/Day%20time%20shows-2019-01-07%2013:24:00s
     body:
       encoding: UTF-8
       string: 'Tag,4,Day time shows,jerry springer,maury,Dr. Phil,Judge Judy,The Price
@@ -23,13 +23,13 @@ http_interactions:
       Host:
       - musictrends.s3.amazonaws.com
       X-Amz-Date:
-      - 20190107T183747Z
+      - 20190107T202448Z
       X-Amz-Content-Sha256:
       - 681b48885aad6e56927e5385b5d247bdaeb6df19b192d97ac853405fdb1ed15f
       Authorization:
       - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
         SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
-        Signature=ee31c4686c2a7c7a52ad2e9e95873cb889cc7b90973d74751a76f52a7a259bbb
+        Signature=d7a30f0e2fe8325819410f9034685e2f26ef5c20b52cb19773fd8ea848d5eaa0
       Content-Length:
       - '145'
       Accept:
@@ -40,13 +40,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - M9NLAllB0Dgyibm+agOqRwCAyZeKjcItSQ6TtUG3oKJ72GnbjpU5f0RNuSNQ4jv/gscOLdWJC/0=
+      - 00gfbmszxmfQSCqslh44BDcB3jHkq7jB9WUXUgR2KccVi5CalwUBA+ggaFmd+JEAWk/myWpPpAs=
       X-Amz-Request-Id:
-      - 494AD97D745708EC
+      - DF2776244808DFFB
       Date:
-      - Mon, 07 Jan 2019 18:37:48 GMT
+      - Mon, 07 Jan 2019 20:24:49 GMT
       X-Amz-Version-Id:
-      - 0cB9na8Lzp5Hrx5gwd.lRka.UHws.Nc4
+      - UXn0rq3jfc5H4Qfx2nwAdVojjwEv4IQV
       Etag:
       - '"29e99fb1ccbb749113acb7d2c7d26f27"'
       Content-Length:
@@ -57,10 +57,10 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 07 Jan 2019 18:37:47 GMT
+  recorded_at: Mon, 07 Jan 2019 20:24:48 GMT
 - request:
     method: put
-    uri: https://musictrends.s3.amazonaws.com/logs/tags/4-2019-01-07%2011:38:00s
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/Day%20time%20shows-2019-01-07%2013:28:00s
     body:
       encoding: UTF-8
       string: 'Tag,4,Day time shows,jerry springer,maury,Dr. Phil,Judge Judy,The Price
@@ -81,13 +81,13 @@ http_interactions:
       Host:
       - musictrends.s3.amazonaws.com
       X-Amz-Date:
-      - 20190107T183839Z
+      - 20190107T202804Z
       X-Amz-Content-Sha256:
       - 681b48885aad6e56927e5385b5d247bdaeb6df19b192d97ac853405fdb1ed15f
       Authorization:
       - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
         SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
-        Signature=c81158902889c0132ed6408afc0c3c5db1e0c4824fb3797c9e3e4ef90287188e
+        Signature=a987578c478721e3f2fe8c23fe3ebdad214b79806a7f1eb0ad8e2d75c0942995
       Content-Length:
       - '145'
       Accept:
@@ -98,13 +98,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - yuDAVhH3KvwOzzp3inzxcfnl8DSYjni1bwOyHQISJZF+vvSjtLO4k//QO+HruIQTQ2h53NcX5n0=
+      - iAe3xCxMHvXGX+mCFGgJQ8d7poCUaWv6bSdGtdXkRGBmlPtmjzJNyn2AhhMxni9rdjwz2Qn+d2Y=
       X-Amz-Request-Id:
-      - 50C40013052926E8
+      - B231BE0CD7BFD22F
       Date:
-      - Mon, 07 Jan 2019 18:38:41 GMT
+      - Mon, 07 Jan 2019 20:28:05 GMT
       X-Amz-Version-Id:
-      - 7LZd8rWQYJ1TlNR9JJF1281LeAYOezHb
+      - Hg_jmXp.JgTib9WgDloLzRDZW8woukwN
       Etag:
       - '"29e99fb1ccbb749113acb7d2c7d26f27"'
       Content-Length:
@@ -115,5 +115,179 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Mon, 07 Jan 2019 18:38:40 GMT
+  recorded_at: Mon, 07 Jan 2019 20:28:05 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/Day%20time%20shows-2019-01-07%2013:39:00s
+    body:
+      encoding: UTF-8
+      string: 'Tag,4,Day time shows,jerry springer,maury,Dr. Phil,Judge Judy,The Price
+        is Right,jerry springer,maury,dr. phil,judge judy,the price is right,,,0
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - Kemfscy7dJETrLfSx9JvJw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T203957Z
+      X-Amz-Content-Sha256:
+      - 681b48885aad6e56927e5385b5d247bdaeb6df19b192d97ac853405fdb1ed15f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=4c9db1c0825877392f81dbfff08c860ea15cdc7e1e94612caf8a444d746eeca4
+      Content-Length:
+      - '145'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - cuUzq162FJp3Z6YluCfuYsPyo50RaaG1G68h42l7fmU2UOgxvv2YGWKgn7fxkqyqdOfqhflQa2c=
+      X-Amz-Request-Id:
+      - '02825F53361EB156'
+      Date:
+      - Mon, 07 Jan 2019 20:39:58 GMT
+      X-Amz-Version-Id:
+      - Hjf5CP166z9ZXpyYlxJ41zepy50x5e8u
+      Etag:
+      - '"29e99fb1ccbb749113acb7d2c7d26f27"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:39:57 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/Day%20time%20shows-2019-01-07%2013:42:00s
+    body:
+      encoding: UTF-8
+      string: 'Tag,4,Day time shows,jerry springer,maury,Dr. Phil,Judge Judy,The Price
+        is Right,jerry springer,maury,dr. phil,judge judy,the price is right,,,0
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - Kemfscy7dJETrLfSx9JvJw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T204237Z
+      X-Amz-Content-Sha256:
+      - 681b48885aad6e56927e5385b5d247bdaeb6df19b192d97ac853405fdb1ed15f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=f540f610cced22a8f1db003fa363698b970d483769c847cc7a751eea08368dc0
+      Content-Length:
+      - '145'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 3A1WpFn9qqrCRCSs8QdS8LhWtD6ip9TJMi/OAWXMdY5p22RQQuoo8wl3v6n4U7iKig4W8ymBbYg=
+      X-Amz-Request-Id:
+      - 482FA91095F56B8D
+      Date:
+      - Mon, 07 Jan 2019 20:42:38 GMT
+      X-Amz-Version-Id:
+      - XKUdGOtbs6ILMFgMSyQQ05Z3ewWyGsDN
+      Etag:
+      - '"29e99fb1ccbb749113acb7d2c7d26f27"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:42:37 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/Day%20time%20shows-2019-01-07%2013:58:00s
+    body:
+      encoding: UTF-8
+      string: 'Tag,4,Day time shows,jerry springer,maury,Dr. Phil,Judge Judy,The Price
+        is Right,jerry springer,maury,dr. phil,judge judy,the price is right,,,0
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - Kemfscy7dJETrLfSx9JvJw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T205831Z
+      X-Amz-Content-Sha256:
+      - 681b48885aad6e56927e5385b5d247bdaeb6df19b192d97ac853405fdb1ed15f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=56b1ba565cef62abeeb8a28e0cadaa70ab17a7a12b80584c104c7b7ac22c353e
+      Content-Length:
+      - '145'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - xnR22GRCe+UIr68I10t46syd4lc+P5Zt4m1xymCEbnYMW8pMdN9IIjVpB47NWeLEalMYNPVJep4=
+      X-Amz-Request-Id:
+      - B66A04D1C348CB61
+      Date:
+      - Mon, 07 Jan 2019 20:58:32 GMT
+      X-Amz-Version-Id:
+      - SRbdsyQwQvcNJ3oBxJKdEQYJhK52jEP4
+      Etag:
+      - '"29e99fb1ccbb749113acb7d2c7d26f27"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:58:31 GMT
 recorded_with: VCR 4.0.0

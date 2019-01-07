@@ -5,6 +5,12 @@ class TagWorker
     @tag_id = tag_id
   end
 
+  def self.find_or_create_potential_tags_and_post_trends
+    Tag.find_each do |t|
+      TagWorker.new(t.id).match_likely_songs_and_find_trends
+    end
+  end
+
   def self.add_tag_to_song(tag_id, song_id)
     song = SongTagging.find_or_create_by(tag_id: tag_id, song_id: song_id)
   end

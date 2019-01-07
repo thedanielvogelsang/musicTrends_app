@@ -67,7 +67,7 @@ RSpec.describe SongWorker do
           expect(return_trends[:corpus_word_count]).to eq(124)
           expect(return_trends[:popular_words_in_corpus].keys).to eq(['to', 'sean', 'in', 'of', 'a'])
           expect(return_trends[:keyword_matches]).to eq(21) | eq(22)
-          expect(return_trends[:important_keyword_matches]).to eq(['back','flow', 'sean', 'song', 'title', 'big'])
+          expect(return_trends[:important_keyword_matches]).to eq(["back", "flow", "sean", "song", "title", "britney", "spears", "big sean ", "supa dupa flow", "big"])
         end
       end
       it "#find_trends also includes possible tags" do
