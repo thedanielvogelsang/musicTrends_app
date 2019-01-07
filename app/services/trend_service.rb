@@ -13,6 +13,6 @@ class TrendService
   def log_song_trends
     body = []
     body.push(@hsh_info.to_a.join(',').strip)
-    
+    return body
   end
 end

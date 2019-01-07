@@ -15,7 +15,9 @@ RSpec.describe TrendService do
   end
   describe "utility" do
     it "can put an object to aws console" do
-      
+      aws = TrendService.new("Song", {id: 1, name: "Daniel", info: "123"})
+      aws_body = aws.log_song_trends
+      expect(aws_body).to eq(["id,1,name,Daniel,info,123"])
     end
   end
 end
