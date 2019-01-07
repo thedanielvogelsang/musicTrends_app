@@ -18,6 +18,10 @@ class Tag < ApplicationRecord
   end
 
   def possible_song_matches?
-    possible_taggings.songs
+    possible_taggings.songs.pluck(:id, :title, :artist_name)
+  end
+
+  def song_matches
+    songs.pluck(:id, :title, :artist_name)
   end
 end

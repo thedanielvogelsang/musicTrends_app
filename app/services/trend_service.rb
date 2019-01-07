@@ -13,12 +13,18 @@ class TrendService
 
   def log_song_trends
     body = build_puts_body
-    obj_name = "logs/#{s_name}/#{@id}-#{DateTime.now.strftime("%Y-%m-%d %H:%M:00s").to_s}"
+    obj_name = "logs/#{s_name}/#{@id}-#{DateTime.now.strftime("%Y-%m-%d").to_s}"
+    put_object(obj_name, body)
+  end
+
+  def log_tag_trends
+    body = build_puts_body
+    obj_name = "logs/tags/#{@id}-#{DateTime.now.strftime("%Y-%m-%d").to_s}"
     put_object(obj_name, body)
   end
 
   def build_puts_body
-    @hsh_info.to_a.join(',')
+    @hsh_info.map{|k, v| v}.to_a.join(',') + "\n"
   end
 
   def put_object(obj_name, body)
