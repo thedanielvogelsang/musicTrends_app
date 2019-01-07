@@ -29,8 +29,12 @@ class SearchWorker
   end
 
   def find_trends
+    search = Search.find(search_id)
     return {
-      
+      type: "Search",
+      id: search_id,
+      text: search.text,
+      song_matches: search.song_searches.count
     }
   end
 end
