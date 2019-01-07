@@ -35,6 +35,8 @@ RSpec.describe TrendService do
           possible_tags: [[15847, "Chicago"]]
         }
         aws = TrendService.new(song[:type], song).log_song_trends
+        byebug
+        expect(aws).eq ('hello')
       end
     end
   end
