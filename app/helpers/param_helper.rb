@@ -9,7 +9,7 @@ module ParamHelper
       return {
           id: params[:song_id],
           title: song[:full_title],
-          artist_name: aname || "0",
+          artist_name: aname || "unknown",
           artist_id: a_id || 0,
           annotation_ct: song[:annotation_count]
         }

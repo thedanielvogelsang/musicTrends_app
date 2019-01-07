@@ -17,6 +17,7 @@ class Api::V1::TagsController < ApplicationController
     if params[:tags]
       if tag = Tag.create(safe_params)
         render json: tag, status: 202
+        TagJob.perform_async(tag.id)
       else
         render json: {errors: tag.errors.messages}, status: 404
       end

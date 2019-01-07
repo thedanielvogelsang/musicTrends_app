@@ -9,6 +9,12 @@ class TagWorker
     song = SongTagging.find_or_create_by(tag_id: tag_id, song_id: song_id)
   end
 
+  def match_likely_songs_and_find_trends
+    match_likely_songs
+    trends = find_trends
+    TrendsJob.perform_async("Tag", trends)
+  end
+
   def match_likely_songs
     tag = Tag.find(@tag_id)
     Song.find_each do |song|

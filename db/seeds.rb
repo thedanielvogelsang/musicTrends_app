@@ -10,6 +10,17 @@ search_one = {
   text: "What's going on?",
   type: "Song"
   }
+  31721
+  51128
+  51272
+  880523
+  2326824
+
+search_two = {
+  text: "bacon",
+  type: "Song"
+  }
+68399
 
 Tag.create(context: "1990s",
             key_words: ["boy bands", "Britney Spears", "N'Sync",
@@ -17,19 +28,3 @@ Tag.create(context: "1990s",
                         "jean jackets", "jeans", "hotdogs", "carefree days"],
 
                     )
-31721
-51128
-51272
-880523
-2326824
-1990s
-boy bands
-Britney Spears
-N'Sync
-skateboarding
-fruit-by-the-foot
-hot pockets
-jean jackets
-jeans
-hotdogs
-carefree days

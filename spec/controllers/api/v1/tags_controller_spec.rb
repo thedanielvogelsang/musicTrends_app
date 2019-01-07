@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 RSpec.describe Api::V1::TagsController, type: :controller do
   context "before all request-header auth token" do
@@ -27,10 +28,23 @@ RSpec.describe Api::V1::TagsController, type: :controller do
     end
 
     describe "POST #create" do
-      it "returns http success" do
-        post :create, params: {tags: {context: "Day time shows", key_words: ["jerry springer", "maury", "Dr. Phil", "Judge Judy", "The Price is Right"]}}
-        expect(response).to have_http_status(:success)
-        expect(Tag.count).to eq(2)
+      Sidekiq::Testing.inline! do
+        it "returns http success" do
+          VCR.use_cassette("services/aws_service/trends_service_spec1_putsobject=TAG", :allow_playback_repeats => true, :record => :new_episodes) do
+            post :create, params: {tags: {context: "Day time shows", key_words: ["jerry springer", "maury", "Dr. Phil", "Judge Judy", "The Price is Right"]}}
+            expect(response).to have_http_status(:success)
+            expect(TagJob.jobs.size).to eq(1)
+            expect(Tag.count).to eq(2)
+            tag = Tag.first
+            tag2 = Tag.second
+            expect(tag.possible_taggings.count).to eq(0)
+            expect(tag2.possible_taggings.count).to eq(0)
+            Sidekiq::Worker.drain_all
+            tag = Tag.first
+            tag2 = Tag.second
+            expect(TagJob.jobs.size).to eq(0)
+          end
+        end
       end
     end
 
