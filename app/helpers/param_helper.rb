@@ -12,7 +12,7 @@ module ParamHelper
         title = song[:title]
       end
       return {
-          id: params[:song_id],
+          id: song[:id],
           title: title,
           artist_name: aname || "unknown",
           artist_id: a_id || 0,
