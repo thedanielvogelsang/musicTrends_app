@@ -1,3 +1,3 @@
 class TagShowSerializer < ActiveModel::Serializer
-  attributes :id, :name, :best_bet_prescription
+  attributes :id
 end

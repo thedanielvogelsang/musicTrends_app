@@ -6,10 +6,10 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def show
-    if check_id && params[:id]
-      render json: Tag.find(param[:id]), status: 202, serializer: TagShowSerializer
+    if params[:id]
+      render json: Tag.find(params[:id]), status: 202, serializer: TagShowSerializer
     else
-      render json: {error: "Medication does not exist"}, status: 404
+      render json: {error: "Tag does not exist"}, status: 404
     end
   end
 
@@ -17,8 +17,29 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def destroy
+    tag = Tag.destroy(params[:id])
+    render json: tag, status: 202
   end
 
   def update
+    if safe_params && params[:id]
+      if params[:tags][:key_words]
+        tag = Tag.find(params[:id]).update_keywords(safe_params)
+      else
+        if tag = Tag.update(params[:id], safe_params)
+          render json: tag, status: 202
+        else
+          render json: {errors: tag.errors.messages}, status: 404
+        end
+      end
+    else
+      render json: {error: "Something went wrong"}, status: 404
+    end
   end
+
+  private
+
+    def safe_params
+      params.require(:tags).permit(:context, :key_words => [])
+    end
 end

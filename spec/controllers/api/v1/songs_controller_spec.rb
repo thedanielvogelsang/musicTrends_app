@@ -29,7 +29,8 @@ RSpec.describe Api::V1::SongsController, type: :controller do
         resp = GeniusService.new.get_songs(query)
         get :index, params: {query: query}
         expect(response).to have_http_status(:success)
-        expect(JSON.parse(response.body).length).to eq(10)
+        expect(JSON.parse(response.body).length).to eq(20)
+        # expect(JSON.parse(response.body).length).to eq(10)
         expect(resp.length).to eq(20)
       end
     end

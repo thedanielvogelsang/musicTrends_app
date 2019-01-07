@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/BrahimDahmani/pager-api.git
+  revision: 31890e7bc9c884d3e9cbf8c8e58c77863612bc2c
+  branch: bugfixes
+  specs:
+    pager_api (0.1.1)
+
+GIT
   remote: https://github.com/stympy/faker.git
   revision: e315adf872f7bdb31d31addc82d326f61fad9f06
   branch: master
@@ -239,6 +246,7 @@ DEPENDENCIES
   figaro
   kaminari
   listen (>= 3.0.5, < 3.2)
+  pager_api!
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.2)

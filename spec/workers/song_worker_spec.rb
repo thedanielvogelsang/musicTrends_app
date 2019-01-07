@@ -36,6 +36,7 @@ RSpec.describe SongWorker, type: :model do
         sworker.get_referents
         expect(sworker.refs).to be_truthy
         expect(sworker.refs.class).to eq(Array)
+        # expect(sworker.refs.length).to eq(20)
         expect(sworker.refs.length).to eq(10)
       end
     end
