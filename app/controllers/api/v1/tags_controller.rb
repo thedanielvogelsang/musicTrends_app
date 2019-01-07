@@ -14,6 +14,15 @@ class Api::V1::TagsController < ApplicationController
   end
 
   def create
+    if params[:tags]
+      if tag = Tag.create(safe_params)
+        render json: tag, status: 202
+      else
+        render json: {errors: tag.errors.messages}, status: 404
+      end
+    else
+      render json: {error: "Something went wrong"}, status: 202
+    end
   end
 
   def destroy
