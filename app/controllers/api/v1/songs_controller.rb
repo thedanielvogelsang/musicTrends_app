@@ -12,7 +12,7 @@ class Api::V1::SongsController < ApplicationController
 
   def show
     if song = GeniusService.new.get_song_info(params[:song_id])
-      render json: song, status: 202
+      render json: song, status: 202, serializer: nil
       MasterSearchJob.perform_async(safe_song(song), safe_search)
     else
       render json: {error: "RecordNotFound"}, status: 404

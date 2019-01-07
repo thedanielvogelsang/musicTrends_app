@@ -22,7 +22,8 @@ class Tag < ApplicationRecord
   end
 
   def possible_song_matches?
-    possible_taggings.songs.pluck(:id, :title, :artist_name)
+    Song.joins(:possible_taggings).where(:possible_taggings => {tag_id: id})
+        .pluck(:id, :title, :artist_name)
   end
 
   def song_matches
