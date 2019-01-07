@@ -480,4 +480,120 @@ http_interactions:
       string: ''
     http_version: 
   recorded_at: Mon, 07 Jan 2019 20:28:07 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/songs/Chicago/-2019-01-07%2013:39:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,1,,132,{"to"=>"9", "of"=>"5", "a"=>"4", "trying"=>"3",
+        "for"=>"3"},11,for,song,trying,25,or,6,4,by chicago,chicago,robert lamm,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - DTJjN1OtZG0Z59caxsUFjQ==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T203959Z
+      X-Amz-Content-Sha256:
+      - 581695ab92657cec6da2e0e598557148746b788e28f1479d9733ece18fc12653
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=fce858736f128101d68f2ebd49949983e6e2355b3f5c7549d43c24e79e5edc0c
+      Content-Length:
+      - '151'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - OAoi0/HS0o8hDCMS8HcmIv1iXiKWJ3kMLZqPGt4KVIXj4tzpqEIpJ4w9YJeZ7DmywUCXQ8B5nvA=
+      X-Amz-Request-Id:
+      - 0332A9D740C9C6BD
+      Date:
+      - Mon, 07 Jan 2019 20:40:01 GMT
+      X-Amz-Version-Id:
+      - MXHt8n7dr4mwaBf.00n7hEBCznK5mCJo
+      Etag:
+      - '"0d32633753ad646d19e7d71ac6c5058d"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:40:00 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/songs/Queen/-2019-01-07%2013:40:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,85260,Queen,1,,122,{"to"=>"4", "a"=>"4", "with"=>"4", "for"=>"3",
+        "his"=>"3"},16,for,for,often,their,voice,fat,bottomed,girls,by queen,queen,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 6s/kS0WkmvWjEahjDZ08Pw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T204000Z
+      X-Amz-Content-Sha256:
+      - cff49a468c2c3241a0b0ecc6b742e0004d46abf7964e117ec936e2e437605e95
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=daa7aa0c7e04a28afe8a8f84f8f102c2aaae130d01ab36b158e06046c51d4744
+      Content-Length:
+      - '150'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - EgylTO9hxeH6crEL6dquBG7L0b0/Z3vgn4Zcqki3uc1DyPE5V5121wtIlvXgOhTcXOn28InHfBI=
+      X-Amz-Request-Id:
+      - DC8388806FD2044A
+      Date:
+      - Mon, 07 Jan 2019 20:40:01 GMT
+      X-Amz-Version-Id:
+      - O9LnlMxOcyU6uKMiI9cSyORuATajdXq6
+      Etag:
+      - '"eacfe44b45a49af5a311a8630d9d3c3f"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:40:00 GMT
 recorded_with: VCR 4.0.0
