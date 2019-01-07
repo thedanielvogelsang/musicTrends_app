@@ -30,6 +30,7 @@ RSpec.describe Api::V1::TagsController, type: :controller do
       it "returns http success" do
         post :create, params: {tags: {context: "Day time shows", key_words: ["jerry springer", "maury", "Dr. Phil", "Judge Judy", "The Price is Right"]}}
         expect(response).to have_http_status(:success)
+        expect(Tag.count).to eq(2)
       end
     end
 

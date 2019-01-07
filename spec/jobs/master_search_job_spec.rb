@@ -61,7 +61,7 @@ RSpec.describe "MasterSearchJob", :type => :job do
         end
       end
       it "will update song-search :count attr if replayed" do
-        VCR.use_cassette("master/integrations_test_random", :allow_playback_repeats => true) do
+        VCR.use_cassette("master/integrations_test_random", :allow_playback_repeats => true, :record => :new_episodes) do
           song_params = {id: 1052, title: "Song Title", artist_id: 12, artist_name: "Britney Spears", annotation_ct: 3}
           search_params = {text: "Whats the name of the band that plays 'Whatever'?", search_type: "Song"}
           MasterSearchJob.perform_async(song_params, search_params)

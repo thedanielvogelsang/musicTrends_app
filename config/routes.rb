@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      get 'searches/index'
+      get 'searches/show'
+    end
+  end
+  namespace :api do
+    namespace :v1 do
       resources :tags, only: [:index, :show, :create, :update, :destroy]
     end
   end
