@@ -61,5 +61,10 @@ RSpec.describe "MasterSearchJob", :type => :job do
         expect(SongSearch.first.count).to eq(2)
       end
     end
+    context "trend results" do
+      it "" do
+        
+      end
+    end
   end
 end

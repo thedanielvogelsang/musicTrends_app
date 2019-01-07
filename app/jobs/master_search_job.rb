@@ -19,7 +19,10 @@ class MasterSearchJob
     if song && search
       song.update(song_params)
       sync_song_and_search(song.id, search.id)
-      # SongWorker.confirm_referents_sync_song_and_find_trends(song.id)
+      TrendsJob.perform_async("Song", song_params['id'])
+      # trends = SongWorker.confirm_referents_sync_song_and_find_trends(song.id)
+      # SearchWorker.new(search.id).create_keywords
+      # TrendJob.perform_async("Song", trends)
     end
   end
 end

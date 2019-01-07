@@ -47,7 +47,7 @@ RSpec.describe Api::V1::SongsController, type: :controller do
     describe "WITH sidekiq processing" do
       Sidekiq::Testing.inline! do
         it "triggers MasterSearchJob" do
-          VCR.use_cassette "/services/chicago_25or624" do
+          VCR.use_cassette("/services/chicago_25or624", :allow_playback_repeats => true) do
             get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
             expect(response).to have_http_status(:success)
             expect(Song.count).to eq(0)
@@ -56,11 +56,13 @@ RSpec.describe Api::V1::SongsController, type: :controller do
           end
         end
         it "every ping updates songs and search counts" do
-          VCR.use_cassette "/services/chicago_25or624_and_britney" do
+          VCR.use_cassette("/services/chicago_25or624_and_britney", :allow_playback_repeats => true) do
             get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
             get :show, params: {song_id: 85260, search: {text: "Brittney Spears"}}
             expect(Song.count).to eq(0)
             expect(MasterSearchJob.jobs.size).to eq(2)
+            expect(TrendsJob.jobs.size).to eq(0)
+
             expect{Sidekiq::Worker.drain_all}.to_not raise_error
             expect(Song.count).to eq(2)
             expect(Search.count).to eq(2)

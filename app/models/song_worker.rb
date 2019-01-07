@@ -14,7 +14,7 @@ class SongWorker
 
   def self.confirm_referents_sync_song_and_find_trends(song_id)
     sw = self.confirm_referents_and_sync_song(song_id)
-    # TrendJob.perform_async(sw.find_trends)
+    TrendJob.perform_async("Song", sw.find_trends)
   end
 
   def self.confirm_referents_and_sync_song(song_id)

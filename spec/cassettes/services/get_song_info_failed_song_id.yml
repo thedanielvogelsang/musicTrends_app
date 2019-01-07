@@ -23,7 +23,7 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sun, 06 Jan 2019 01:07:12 GMT
+      - Sun, 06 Jan 2019 23:39:23 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -31,8 +31,8 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - __cfduid=db053676dbaf5c3aabf031b104064af171546736832; expires=Mon, 06-Jan-20
-        01:07:12 GMT; path=/; domain=.genius.com; HttpOnly
+      - __cfduid=d4952b6b57bb7098d0c024cdd3076324d1546817963; expires=Mon, 06-Jan-20
+        23:39:23 GMT; path=/; domain=.genius.com; HttpOnly
       Status:
       - 404 Not Found
       Cache-Control:
@@ -53,10 +53,10 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 494a49513f63c7bb-DEN
+      - 4952060fa909c7d3-DEN
     body:
       encoding: ASCII-8BIT
       string: '{"meta":{"status":404,"message":"404 Not Found"}}'
     http_version: 
-  recorded_at: Sun, 06 Jan 2019 01:07:12 GMT
+  recorded_at: Sun, 06 Jan 2019 23:39:23 GMT
 recorded_with: VCR 4.0.0

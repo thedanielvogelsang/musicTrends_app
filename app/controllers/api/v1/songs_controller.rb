@@ -17,7 +17,4 @@ class Api::V1::SongsController < ApplicationController
       render json: {error: "RecordNotFound"}, status: 404
     end
   end
-
-  private
-
 end
