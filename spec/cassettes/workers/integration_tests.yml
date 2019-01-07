@@ -239,4 +239,122 @@ http_interactions:
       string: ''
     http_version: 
   recorded_at: Mon, 07 Jan 2019 20:40:07 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/songs/Britney%20Spears/-2019-01-07%2013:42:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,1052,Britney Spears,0,,124,{"to"=>"9", "sean"=>"5", "in"=>"5",
+        "of"=>"5", "a"=>"5"},21,back,flow,sean,song,title,britney,spears,big sean
+        ,supa dupa flow,big,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - uuE92+VKF+98QmNtqSXYww==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T204249Z
+      X-Amz-Content-Sha256:
+      - 6e6b5cd28742d4ac7160a8c73cc0d43395708dd8c55cef4b0468faa67285c2da
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=20f551ef9a88ff8ccbbcd478aff9c685ba852929285f11232eedcf77c6a1ce3e
+      Content-Length:
+      - '165'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 6tc4QfKauyesTKCRW6tr0cIf8csastTMO1yjOz10SUNsz/hO0SVDbouOcPGqLDiAaNU+VxTC+v8=
+      X-Amz-Request-Id:
+      - DDA0D6E170647798
+      Date:
+      - Mon, 07 Jan 2019 20:42:51 GMT
+      X-Amz-Version-Id:
+      - S0x4GLynsd16FBFjIle7_sEz9J9B_DnS
+      Etag:
+      - '"bae13ddbe54a17ef7c42636da925d8c3"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:42:50 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/songs/Britney%20Spears/-2019-01-07%2013:58:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,1052,Britney Spears,0,,124,{"to"=>"9", "sean"=>"5", "in"=>"5",
+        "of"=>"5", "a"=>"5"},21,back,flow,sean,song,title,britney,spears,big sean
+        ,supa dupa flow,big,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - uuE92+VKF+98QmNtqSXYww==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T205840Z
+      X-Amz-Content-Sha256:
+      - 6e6b5cd28742d4ac7160a8c73cc0d43395708dd8c55cef4b0468faa67285c2da
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=e4fac77b6a13376d9b4cb9c7bf36780410bb9b30a6a9264b488ca06d53ed6463
+      Content-Length:
+      - '165'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - gBcoKsZCuii5Cv0zzRFCBbyGygsqq5YkLe2lYCMAc95I6sqITPNAmmTafIb8sC0HuzlpcBHuyis=
+      X-Amz-Request-Id:
+      - B317C21060CE21EE
+      Date:
+      - Mon, 07 Jan 2019 20:58:42 GMT
+      X-Amz-Version-Id:
+      - r1uGbuxRCAFR6whIKAg5fkYsKCVM4wce
+      Etag:
+      - '"bae13ddbe54a17ef7c42636da925d8c3"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 20:58:41 GMT
 recorded_with: VCR 4.0.0
