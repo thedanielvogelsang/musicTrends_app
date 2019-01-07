@@ -16,7 +16,7 @@ RSpec.describe "TrendsJob", :type => :job do
       end
       describe "performing a song trend update" do
         it "performs job with accurate params" do
-          VCR.use_cassette "workers/integration_tests" do
+          VCR.use_cassette("workers/integration_tests", :record => :new_episodes) do
             sw = SongWorker.confirm_referents_and_sync_song(@song.id)
             return_trends = sw.find_trends
             TrendsJob.perform_async('Song', return_trends)

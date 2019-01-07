@@ -1,10 +1,11 @@
 class TrendsJob
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
   def perform(type, trends)
     case type
     when "Song"
-      # TrendService.new(type, trends).log_song_trends(trends)
+      TrendService.new(type, trends).log_song_trends
     when "Tag"
       # TrendService.find_and_store_tag_trends(trends)
     when "Search"

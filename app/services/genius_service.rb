@@ -38,7 +38,7 @@ class GeniusService
     if !resp[:response][:referents].empty?
       return resp[:response][:referents]
     else
-      return nil
+      return []
     end
   end
 end
