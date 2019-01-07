@@ -1,8 +1,9 @@
 class SongSerializer < ActiveModel::Serializer
-  attributes :id, :artist, :key_words, :playcount,
-            :corpus_word_count, :keyword_matches, :most_popular_words,
-            :important_keyword_matches, :possible_tags, :current_tags,
-            :possible_taggings
+  attributes :id, :artist, :title, :important_keyword_matches,
+             :playcount, :corpus_word_count, :keyword_matches,
+             :key_words, :most_popular_words,
+             :possible_tags, :current_tags,
+             :possible_taggings
 
   def current_tags
     object.tags.pluck(:context)
