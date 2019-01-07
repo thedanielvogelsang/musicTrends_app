@@ -19,4 +19,17 @@ class TagWorker
   def create_pos_tag(s_id)
     PossibleTagging.add_or_create_tagging(s_id, @tag_id)
   end
+  def find_trends
+    tag = Tag.find(@tag_id)
+    return {
+      type: "Tag",
+      id: @tag_id,
+      context: tag.context,
+      key_words: tag.key_words,
+      keyword_translation: tag.keywords.pluck(:phrase),
+      song_matches: tag.song_matches,
+      possible_matches: tag.possible_song_matches?,
+      total_count: tag.song_taggings.count,
+    }
+  end
 end

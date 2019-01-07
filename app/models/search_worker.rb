@@ -28,4 +28,9 @@ class SearchWorker
     end
   end
 
+  def find_trends
+    return {
+      
+    }
+  end
 end

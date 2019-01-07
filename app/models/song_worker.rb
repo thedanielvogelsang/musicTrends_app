@@ -202,7 +202,7 @@ class SongWorker
       popular_words_in_corpus: song.most_popular_words,
       keyword_matches: song.keyword_match_count,
       important_keyword_matches: song.key_matches,
-      possible_taggings: song.possible_taggings,
+      possible_taggings: song.possible_taggings.count,
       possible_tags: song.possible_tags
     }
   end
