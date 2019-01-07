@@ -111,12 +111,7 @@ Migrate Database:
 rake db:migrate  
 ```
 
-Run seed file and import GeniusApi songs as Song records, as well as run data analysis via SongWorker and TagWorker:
-```
-rake db:seed
-```
-
-##Using MusicTrends
+## Using MusicTrends
 Your Music Trends app is ready to go.
 
 * MusicTrends is intended to be a private api in addition to utilizing several secret ids/keys, to hook up your own AWS and Genius connections, make sure you run
@@ -138,8 +133,16 @@ S3_BUCKET: '#/yourbucketname'
 X-MT-TOKEN: 'private-api-token-only-you-know-about'
 ```
 
-Testing:
-RSpec is the primary testing tool used for this project. To operate the developer-built testing suite, you'll need to first create a secrets file and store your Genius CLIENT_ID and CLIENT_SECRET / ACCESS_TOKEN. Then, to run type:
+Testing/Seeding database:
+
+To operate the developer-built testing suite, you'll need to first create a secrets file and store your Genius CLIENT_ID and CLIENT_SECRET / ACCESS_TOKEN.  (^^ ABOVE ^^)
+
+Run seed file and import GeniusApi songs as Song records, as well as run data analysis via SongWorker and TagWorker:
+```
+rake db:seed
+
+```
+RSpec is the primary testing tool used for this project. To run it, type:
 ```
 rspec
 ```
