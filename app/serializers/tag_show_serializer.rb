@@ -5,7 +5,7 @@ class TagShowSerializer < ActiveModel::Serializer
               :song_matches,
               :keywords
 
-  def keyword_transation
-    tag.keywords.pluck(:phrase)
+  def keyword_translation
+    object.keywords.pluck(:phrase)
   end
 end

@@ -596,4 +596,352 @@ http_interactions:
       string: ''
     http_version: 
   recorded_at: Mon, 07 Jan 2019 06:59:11 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs//-2019-01-07%2000:03:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,1,,132,{"to"=>"9", "of"=>"5", "a"=>"4", "trying"=>"3",
+        "for"=>"3"},11,for,song,trying,25,or,6,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 4xp1novkwaB/kfHRIYH0Cw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T070331Z
+      X-Amz-Content-Sha256:
+      - 9c4576aeaf2e0fcf13352ff893f1df65637d4785286690711de9de53f20cd98f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=b7c1ca21f42e087ae57f3d50ca94d983c90c7fa5bfb5130bc1233fd7d3aa52ef
+      Content-Length:
+      - '117'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - RrqEfSpbbYr7DSY48BCKp6paqoXdFpLKZqiQEMlQJIYoUJYDUMlQkBovDrZltbpvN9J6++Wmu8Q=
+      X-Amz-Request-Id:
+      - EF7D40B986DB5E91
+      Date:
+      - Mon, 07 Jan 2019 07:03:32 GMT
+      X-Amz-Version-Id:
+      - mOy1Q3XW.CJEIo0MSQU9q865XxYk0MXQ
+      Etag:
+      - '"e31a759e8be4c1a07f91f1d12181f40b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 07:03:32 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs//-2019-01-07%2000:03:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,2,,132,{"a"=>"8", "trying"=>"6", "song"=>"6", "in"=>"6",
+        "for"=>"6"},19,or,trying,25,song,6,for,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - "/jNmmJjLopTt6bdTvyiVTw=="
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T070332Z
+      X-Amz-Content-Sha256:
+      - ff2d177ffe7bfa1f3cd9738aa609db4d9dc9dd09093345f2b109d51dc8218f49
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=68e9de8f52a6941e1b6ee02f0b473fb3549c4ce4e650775134e046d9722fb3ef
+      Content-Length:
+      - '119'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 5IFZUMFOennVlzNTj9Sk78RhE4Zk8pL9/bOZyXw6XamBeDoSKO5dDLAlj4xv4r7uyrxy0r4yAdk=
+      X-Amz-Request-Id:
+      - 848CE7E2E2927200
+      Date:
+      - Mon, 07 Jan 2019 07:03:33 GMT
+      X-Amz-Version-Id:
+      - JbStecaGG61Xx1G_5bjCoBV4yiznh63O
+      Etag:
+      - '"fe33669898cba294ede9b753bf28954f"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 07:03:33 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs//-2019-01-07%2000:04:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,1,,132,{"to"=>"9", "of"=>"5", "a"=>"4", "trying"=>"3",
+        "for"=>"3"},11,for,song,trying,25,or,6,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 4xp1novkwaB/kfHRIYH0Cw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T070428Z
+      X-Amz-Content-Sha256:
+      - 9c4576aeaf2e0fcf13352ff893f1df65637d4785286690711de9de53f20cd98f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=7a7f5317fa430f1e14045670173e074d9c8aca2e393dc8677f6d79168a4a717b
+      Content-Length:
+      - '117'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - KHYMWI1OIGZigW4T5QDfJv1e0UT0F+ol+UgCq8Dznzi7RcL5UEI2ADPinTzez+wtSOvdHN88vIw=
+      X-Amz-Request-Id:
+      - 182E0627F4BC444A
+      Date:
+      - Mon, 07 Jan 2019 07:04:29 GMT
+      X-Amz-Version-Id:
+      - 8aKa0ZSKrt3xumtCMGaq9BYO9tJxqfZY
+      Etag:
+      - '"e31a759e8be4c1a07f91f1d12181f40b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 07:04:29 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs//-2019-01-07%2000:04:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,2,,132,{"a"=>"8", "trying"=>"6", "song"=>"6", "in"=>"6",
+        "for"=>"6"},19,or,trying,25,song,6,for,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - "/jNmmJjLopTt6bdTvyiVTw=="
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T070429Z
+      X-Amz-Content-Sha256:
+      - ff2d177ffe7bfa1f3cd9738aa609db4d9dc9dd09093345f2b109d51dc8218f49
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=34f4be3f6cee55730da9779fefd7ca0ac54451b9443b9f60ca88be10bf7ec32e
+      Content-Length:
+      - '119'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - tuDPjaFzIaiGn/7+NkoO091q0wMPmq8KSFi8QiuH8AeTNcebW/l5K7m1LfYTsPrrTY68Ze42fLw=
+      X-Amz-Request-Id:
+      - FD4506B3BF466FBA
+      Date:
+      - Mon, 07 Jan 2019 07:04:30 GMT
+      X-Amz-Version-Id:
+      - 6s3mv6MI2DwDxS5ZnUWgEwMLdh_IR7Qs
+      Etag:
+      - '"fe33669898cba294ede9b753bf28954f"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 07:04:29 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs//-2019-01-07%2000:12:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,1,,132,{"to"=>"9", "of"=>"5", "a"=>"4", "trying"=>"3",
+        "for"=>"3"},11,for,song,trying,25,or,6,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 4xp1novkwaB/kfHRIYH0Cw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T071221Z
+      X-Amz-Content-Sha256:
+      - 9c4576aeaf2e0fcf13352ff893f1df65637d4785286690711de9de53f20cd98f
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=b0cbd57bf921024ff0288b27d592b917021700af9ed26c51bb90310eae87a5e9
+      Content-Length:
+      - '117'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - GKVjEjPBRKrTjWx3hNrJRDp8/bbAfxKQDEd4pkUw9Ll6OuPWu2oR/k0kU82r4fGLCzPxVEuLSus=
+      X-Amz-Request-Id:
+      - D26794215F50F3D3
+      Date:
+      - Mon, 07 Jan 2019 07:12:22 GMT
+      X-Amz-Version-Id:
+      - YMzKY.z15nH4ArgKBd.a92EsmmnHQEpt
+      Etag:
+      - '"e31a759e8be4c1a07f91f1d12181f40b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 07:12:21 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs//-2019-01-07%2000:12:00s
+    body:
+      encoding: UTF-8
+      string: 'Song,128399,Chicago,2,,132,{"a"=>"8", "trying"=>"6", "song"=>"6", "in"=>"6",
+        "for"=>"6"},19,or,trying,25,song,6,for,0,
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - "/jNmmJjLopTt6bdTvyiVTw=="
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T071222Z
+      X-Amz-Content-Sha256:
+      - ff2d177ffe7bfa1f3cd9738aa609db4d9dc9dd09093345f2b109d51dc8218f49
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=5a78a66c758a7e51dd1427a4b1a2467a5fc577f68bc52982c67b040952c92d57
+      Content-Length:
+      - '119'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - CC5YqLbafA0LHpiRk9/PEcTbE4GKrsRMAfwMCb3CvrNnmw+DkJ9UfHWJsgCiloTZRDULBEr1VvE=
+      X-Amz-Request-Id:
+      - 3248218A47AF0717
+      Date:
+      - Mon, 07 Jan 2019 07:12:23 GMT
+      X-Amz-Version-Id:
+      - 8L.44xZjg3KItVLz2Gj2y_14OgmbQLwv
+      Etag:
+      - '"fe33669898cba294ede9b753bf28954f"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 07:12:22 GMT
 recorded_with: VCR 4.0.0
