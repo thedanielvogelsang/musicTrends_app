@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/Kanye/1052-2019-01-06%2019:05:00s
+    body:
+      encoding: US-ASCII
+      string: type,Song,id,1052,title,Lengthy Title,artist_name,Kanye,playcount,1,tags,Rap,Kardashians,corpus_word_count,172,popular_words_in_corpus,swordfish,sneakers,butt,keyword_matches,3,important_keyword_matches,YE,
+        sneakers, Keyword3,possible_tags,15847,Chicago
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - RYLH5foTEouBm0ZeaxdzJw==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190107T020559Z
+      X-Amz-Content-Sha256:
+      - af32f4765f3a4ac0cbf8e70e8c431f6e37bff97400cafa6c749421be9a26bd9a
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190107/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=c403e341b26776b260a2db99c054cb88f219befc0532af5e5f6153bc2a0d46d9
+      Content-Length:
+      - '253'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - q8qcmdnf/ucp9yyhe7l0U/HvPIgwKlo6+BCbCbJHdQOt/Et6fDsr6cb2x/hLr5CKUkD8gqwNry4=
+      X-Amz-Request-Id:
+      - D65624BBB17C8396
+      Date:
+      - Mon, 07 Jan 2019 02:06:01 GMT
+      X-Amz-Version-Id:
+      - ihjDchDwcf3HzSUIljXIH5CcCGt4hYF_
+      Etag:
+      - '"4582c7e5fa13128b819b465e6b177327"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 07 Jan 2019 02:06:00 GMT
+recorded_with: VCR 4.0.0
