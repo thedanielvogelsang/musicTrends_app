@@ -217,7 +217,7 @@ params:
 
 example `/songinfo` endpoint request with 'search' params to trigger SongWorker / TrendWorker:
 
-![alt text](public/songinfo_post.post_params.02.40 PM.png)
+![alt text](public/songinfo_post.post_params.jpg)
 
 and its subsequent return:
 
