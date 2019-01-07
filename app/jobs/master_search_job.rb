@@ -18,6 +18,9 @@ class MasterSearchJob
     end
     if song && search
       song.update(song_params)
+      open("db/seeds", 'a') do |f|
+        f.puts [song.id, search.id, search.text]
+      end
       sync_song_and_search(song.id, search.id)
       trends = SongWorker.confirm_referents_sync_song_and_find_trends(song.id)
       SearchWorker.new(search.id).create_keywords

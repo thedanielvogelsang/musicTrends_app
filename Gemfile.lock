@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/BrahimDahmani/pager-api.git
+  revision: 31890e7bc9c884d3e9cbf8c8e58c77863612bc2c
+  branch: bugfixes
+  specs:
+    pager_api (0.1.1)
+
+GIT
   remote: https://github.com/stympy/faker.git
   revision: e315adf872f7bdb31d31addc82d326f61fad9f06
   branch: master
@@ -32,6 +39,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.8)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.2.2)
       activesupport (= 5.2.2)
       globalid (>= 0.3.6)
@@ -73,6 +85,8 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
+    case_transform (0.2)
+      activesupport
     concurrent-ruby (1.1.4)
     connection_pool (2.2.2)
     crack (0.4.3)
@@ -92,6 +106,7 @@ GEM
     i18n (1.4.0)
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
+    jsonapi-renderer (0.2.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -220,6 +235,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   api-pagination
   aws-sdk-s3
   bootsnap (>= 1.1.0)
@@ -230,6 +246,7 @@ DEPENDENCIES
   figaro
   kaminari
   listen (>= 3.0.5, < 3.2)
+  pager_api!
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.2)
