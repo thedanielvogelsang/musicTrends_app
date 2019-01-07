@@ -1,5 +1,6 @@
 class TagJob
   include Sidekiq::Worker
+  
 
   def perform(id)
     tw = TagWorker.new(id)

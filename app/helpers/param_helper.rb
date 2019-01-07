@@ -6,9 +6,14 @@ module ParamHelper
         aname = song[:album][:artist][:name]
         a_id = song[:album][:artist][:id]
       end
+      if song[:title] && song[:full_title]
+        title = song[:full_title]
+      else
+        title = song[:title]
+      end
       return {
-          id: params[:song_id],
-          title: song[:full_title],
+          id: song[:id],
+          title: title,
           artist_name: aname || "unknown",
           artist_id: a_id || 0,
           annotation_ct: song[:annotation_count]

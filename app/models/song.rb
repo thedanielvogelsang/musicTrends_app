@@ -37,7 +37,7 @@ class Song < ApplicationRecord
     Keyword.joins(:keyword_song_matches).joins(:songs)
             .where(:songs => {id: id})
             .order("keyword_song_matches.count DESC")
-            .limit(6).pluck(:phrase)
+            .limit(10).pluck(:phrase)
   end
 
   def possible_tags
