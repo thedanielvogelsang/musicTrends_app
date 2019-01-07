@@ -45,7 +45,7 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   RSpec.configure do |config|
-  config.failure_color = :cyan
+  config.failure_color = :red
   config.success_color = :yellow
   config.pending_color = :magenta
   config.fixed_color = :blue
