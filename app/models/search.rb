@@ -6,6 +6,12 @@ class Search < ApplicationRecord
 
   before_create :add_initial_count
 
+  def song_counts
+    sct = {}
+    self.song_searches.each{|ss| sct[ss.count] = [ss.song_id, ss.song.title]}
+    return sct
+  end
+
   private
     def add_initial_count
       self.count = 1

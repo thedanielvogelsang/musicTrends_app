@@ -32,7 +32,7 @@ RSpec.describe SongWorker, type: :model do
     it "initializes without an API call to find referent annotations" do
       VCR.use_cassette "/workers/britney_song_worker" do
         sworker = SongWorker.new(@song.id)
-        assert_nil(sworker.refs)
+        assert_equal([], sworker.refs)
         sworker.get_referents
         expect(sworker.refs).to be_truthy
         expect(sworker.refs.class).to eq(Array)

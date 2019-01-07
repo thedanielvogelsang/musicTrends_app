@@ -34,7 +34,7 @@ class SearchWorker
       type: "Search",
       id: search_id,
       text: search.text,
-      song_matches: search.song_searches.count
+      song_matches: search.songs.count
     }
   end
 end

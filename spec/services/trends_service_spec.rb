@@ -89,6 +89,9 @@ RSpec.describe TrendService do
         aws = TrendService.new("Search", {})
         expect(aws.conn.class).to eq(Aws::S3::Client)
       end
+      it "can upload a search trend" do
+        search = {4=>[51272, "What's Going On by Marvin Gaye"], 2=>[880523, "What's Going On by U2"]}
+      end
     end
   end
 end

@@ -53,7 +53,7 @@ RSpec.describe Api::V1::SongsController, type: :controller do
     describe "WITH sidekiq processing" do
       Sidekiq::Testing.inline! do
         it "triggers MasterSearchJob" do
-          VCR.use_cassette("/services/new_chicago_25or624", :allow_playback_repeats => true) do
+          VCR.use_cassette("/services/new_chicago_25or624", :allow_playback_repeats => true, :record => :new_episodes) do
             get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
             expect(response).to have_http_status(:success)
             expect(Song.count).to eq(0)

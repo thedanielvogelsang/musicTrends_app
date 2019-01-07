@@ -4,7 +4,7 @@ class SongWorker
 
   def initialize(song_id)
     @song_id = song_id
-    @refs = nil
+    @refs = []
   end
 
   def get_referents
@@ -14,7 +14,7 @@ class SongWorker
 
   def self.confirm_referents_sync_song_and_find_trends(song_id)
     sw = self.confirm_referents_and_sync_song(song_id)
-    # TrendsJob.perform_async("Song", sw.find_trends)
+    TrendsJob.perform_async("Song", sw.find_trends)
   end
 
   def self.confirm_referents_and_sync_song(song_id)
@@ -196,6 +196,7 @@ class SongWorker
     return {
       type: "Song",
       id: song.id,
+      artist_name: song.artist_name,
       playcount: song.playcount,
       tags: song.tags.pluck(:context),
       corpus_word_count: song.word_count,

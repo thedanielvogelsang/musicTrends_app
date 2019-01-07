@@ -71,7 +71,7 @@ RSpec.describe GeniusService do
     it "#get_referents returns nil for bad ids" do
       VCR.use_cassette "/services/get_referents_failed_song_id" do
           api_return = GeniusService.new.get_referents(0)
-          assert_nil(api_return)
+          assert_equal([], api_return)
       end
     end
     describe "annotation object" do
