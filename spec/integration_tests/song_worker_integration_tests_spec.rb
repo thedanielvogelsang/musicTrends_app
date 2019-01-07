@@ -45,11 +45,53 @@ RSpec.describe SongWorker do
           expect(song.word_dict.keys.include?("spears")).to be true
           expect(Keyword.where(phrase: "spears").count).to eq(1)
 
+          # original words still in dict (each time through will not delete old words)
+          expect(song.word_dict.keys.include?("Previous Keyword")).to be true
+          expect(song.word_dict.keys.include?("racetrack")).to be true
+
           # proves #save_title_words
           expect(song.word_dict.keys.include?("title")).to be true
           song = Song.first
           expect(Song.count).to eq(1)
           expect(song.refs_found?).to be true
+        end
+      end
+      it "#after creating keywords, it can find trends" do
+        VCR.use_cassette "workers/integration_tests" do
+          song = Song.first
+          sworker = SongWorker.confirm_referents_and_sync_song(song.id)
+          return_trends = sworker.find_trends
+          expect(return_trends[:type]).to eq("Song")
+          expect(return_trends[:id]).to eq(1052)
+          expect(return_trends[:playcount]).to eq(0)
+          expect(return_trends[:corpus_word_count]).to eq(124)
+          expect(return_trends[:popular_words_in_corpus].keys).to eq(['to', 'sean', 'in', 'of', 'a'])
+          expect(return_trends[:keyword_matches]).to eq(21) | eq(22)
+          expect(return_trends[:important_keyword_matches]).to eq(['back','flow', 'sean', 'song', 'title', 'big'])
+        end
+      end
+      it "#find_trends also includes possible tags" do
+        VCR.use_cassette "workers/integration_tests" do
+          tag = Tag.create(context: "1990s", key_words: ["Britney Spears", "song", "back", "Justin", "skateboards"])
+          song = Song.first
+          #song word_dict created and saved here
+          sworker = SongWorker.confirm_referents_and_sync_song(song.id)
+          # worker returns trend data for console logging
+          return_trends = sworker.find_trends
+          expect(return_trends[:type]).to eq("Song")
+          expect(return_trends[:id]).to eq(1052)
+          expect(return_trends[:possible_taggings].count).to eq(0)
+
+          tworker = TagWorker.new(tag.id)
+          songs = tworker.match_likely_songs
+          expect(songs.first).to eq(Song.find(song.id))
+          return_trends = sworker.find_trends
+          expect(return_trends[:type]).to eq("Song")
+          expect(return_trends[:id]).to eq(1052)
+          expect(return_trends[:possible_taggings].count).to eq(1)
+          expect(return_trends[:possible_tags].count).to eq(1)
+          expect(return_trends[:possible_tags].first[0]).to eq(tag.id)
+          expect(return_trends[:possible_tags].first[1]).to eq("1990s")
         end
       end
     end

@@ -4,6 +4,8 @@ class Keyword < ApplicationRecord
   has_many :tags, through: :keyword_taggings
   has_many :keyword_song_matches, dependent: :destroy
   has_many :keyword_search_matches, dependent: :destroy
+  has_many :songs, through: :keyword_song_matches
+  has_many :searches, through: :keyword_search_matches
   before_validation :downcase_phrase
 
   def downcase_phrase
