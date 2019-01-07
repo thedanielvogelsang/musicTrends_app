@@ -1,5 +1,5 @@
 class Api::V1::SearchesController < ApplicationController
-  before_action :check_id
+  # before_action :check_id
   def index
     render json: Search.paginate(page: params[:page], per_page: 10), status: 202
   end
