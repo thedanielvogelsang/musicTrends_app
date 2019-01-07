@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 include SongSearchHelper
+include ParamHelper
 
 going_On_ids = [
   31721,
@@ -22,7 +23,8 @@ search_one = {
 
 search = Search.create!(search_one)
 going_On_ids.each do |id|
-  Song.find_or_create_by(id: id)
+  song = GeniusService.new.get_song_info(id)
+  Song.find_or_create_by(safe_song(song))
   sync_song_and_search(id, search.id)
   SongWorker.confirm_referents_sync_song_and_find_trends(id)
   SearchWorker.new(search.id).create_keywords
@@ -35,7 +37,8 @@ search_two = {
   }
 search = Search.create(search_two)
 bacon_ids.each do |id|
-  Song.find_or_create_by(id: id)
+  song = GeniusService.new.get_song_info(id)
+  Song.find_or_create_by(safe_song(song))
   sync_song_and_search(id, search.id)
   SongWorker.confirm_referents_sync_song_and_find_trends(id)
   SearchWorker.new(search.id).create_keywords
@@ -48,7 +51,8 @@ search_three = {
 }
 search = Search.create(search_three)
 love_ids.each do |id|
-  Song.find_or_create_by(id: id)
+  song = GeniusService.new.get_song_info(id)
+  Song.find_or_create_by(safe_song(song))
   sync_song_and_search(id, search.id)
   SongWorker.confirm_referents_sync_song_and_find_trends(id)
   SearchWorker.new(search.id).create_keywords
@@ -61,7 +65,8 @@ search_four = {
 }
 search = Search.create(search_four)
 nsync_ids.each do |id|
-  Song.find_or_create_by(id: id)
+  song = GeniusService.new.get_song_info(id)
+  Song.find_or_create_by(safe_song(song))
   sync_song_and_search(id, search.id)
   SongWorker.confirm_referents_sync_song_and_find_trends(id)
   SearchWorker.new(search.id).create_keywords
@@ -74,7 +79,8 @@ search_five = {
 }
 search = Search.create(search_five)
 brit_ids.each do |id|
-  Song.find_or_create_by(id: id)
+  song = GeniusService.new.get_song_info(id)
+  Song.find_or_create_by(safe_song(song))
   sync_song_and_search(id, search.id)
   SongWorker.confirm_referents_sync_song_and_find_trends(id)
   SearchWorker.new(search.id).create_keywords
