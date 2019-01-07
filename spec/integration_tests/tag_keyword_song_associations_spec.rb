@@ -69,7 +69,7 @@ RSpec.describe "Tag Keyword Song Integration Tests" do
           return_trends = sworker.find_trends
           expect(return_trends[:type]).to eq("Song")
           expect(return_trends[:id]).to eq(1052)
-          expect(return_trends[:possible_taggings].count).to eq(0)
+          expect(return_trends[:possible_taggings]).to eq(0)
 
           tworker = TagWorker.new(tag.id)
           songs = tworker.match_likely_songs
