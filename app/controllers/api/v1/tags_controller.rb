@@ -2,7 +2,7 @@ class Api::V1::TagsController < ApplicationController
   before_action :check_id
 
   def index
-      render json: Tag.all, each_serializer: TagIndexSerializer
+    render json: Tag.all, each_serializer: TagIndexSerializer
   end
 
   def show

@@ -14,3 +14,9 @@ s1 = 51272
 s2 = 880523
 s3 = 31721
 s4 = 2326824
+
+Tag.create(context: "1990s",
+            key_words: ["boy bands", "Britney Spears", "N'Sync",
+                        "skateboarding", "fruit-by-the-foot", "hot pockets",
+                        "jean jackets", "jeans", "hotdogs", "carefree days"],
+                        )
