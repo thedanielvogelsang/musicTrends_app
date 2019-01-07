@@ -32,8 +32,14 @@ RSpec.describe Api::V1::SongsController, type: :controller do
     end
     describe "GET #index" do
       it "returns http success" do
+        27.times do |id|
+          Song.create(id: id)
+        end
+        expect(Song.count).to eq(28)
         get :index
         expect(response).to have_http_status(:success)
+        songs = JSON.parse(response.body, symbolize_names: true)
+        expect(songs.count).to eq(10)
       end
     end
 
