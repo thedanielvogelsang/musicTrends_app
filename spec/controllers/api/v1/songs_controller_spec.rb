@@ -1,6 +1,12 @@
 require 'rails_helper'
 require 'sidekiq/testing'
 
+RSpec.configure do |config|
+  config.before(:each) do
+    Sidekiq::Worker.clear_all
+  end
+end
+
 RSpec.describe Api::V1::SongsController, type: :controller do
   before(:each) do
     @song_id = 128399
@@ -47,16 +53,24 @@ RSpec.describe Api::V1::SongsController, type: :controller do
     describe "WITH sidekiq processing" do
       Sidekiq::Testing.inline! do
         it "triggers MasterSearchJob" do
-          VCR.use_cassette("/services/chicago_25or624", :allow_playback_repeats => true) do
+          VCR.use_cassette("/services/new_chicago_25or624", :allow_playback_repeats => true) do
             get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
             expect(response).to have_http_status(:success)
             expect(Song.count).to eq(0)
+            # doesnt raise error because unlike MasterSearchJob, songs_controller doesnt need search_type
             expect{Sidekiq::Worker.drain_all}.to_not raise_error
             expect(Song.count).to eq(1)
+
+            get :show, params: {song_id: @song_id, search: {search_type: "Song", text: "Hello world"}}
+            expect(response).to have_http_status(:success)
+            expect{Sidekiq::Worker.drain_all}.to_not raise_error
+            expect(Song.count).to eq(1)
+            expect(Search.count).to eq(1)
           end
         end
         it "every ping updates songs and search counts" do
-          VCR.use_cassette("/services/chicago_25or624_and_britney", :allow_playback_repeats => true) do
+          VCR.use_cassette("/services/chicago_25or624_and_britney", :allow_playback_repeats => true, :record => :new_episodes) do
+            expect(MasterSearchJob.jobs.size).to eq(0)
             get :show, params: {song_id: @song_id, search: {text: "Hello world"}}
             get :show, params: {song_id: 85260, search: {text: "Brittney Spears"}}
             expect(Song.count).to eq(0)

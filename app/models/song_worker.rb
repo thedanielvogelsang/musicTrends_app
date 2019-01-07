@@ -14,7 +14,7 @@ class SongWorker
 
   def self.confirm_referents_sync_song_and_find_trends(song_id)
     sw = self.confirm_referents_and_sync_song(song_id)
-    TrendJob.perform_async("Song", sw.find_trends)
+    TrendsJob.perform_async("Song", sw.find_trends)
   end
 
   def self.confirm_referents_and_sync_song(song_id)
@@ -32,7 +32,7 @@ class SongWorker
       ref = ref[:annotations][0][:body][:dom][:children][0][:children]
       wrd_cnt = WordCounter.new("Song", song_id, ref).count_words
       wrd_cnt.each do |k, v|
-        word_count[k] ? word_count[k] += v : word_count[k] = v
+        word_count[k] ? word_count[k] = word_count[k].to_i + v : word_count[k] = v
       end
     end
     song.word_dict = word_count
