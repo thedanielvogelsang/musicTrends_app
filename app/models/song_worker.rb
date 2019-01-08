@@ -196,6 +196,7 @@ class SongWorker
     return {
       type: "Song",
       id: song.id,
+      title: song.title,
       artist_name: song.artist_name,
       playcount: song.playcount,
       tags: song.tags.pluck(:context),

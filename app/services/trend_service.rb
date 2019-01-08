@@ -17,6 +17,7 @@ class TrendService
     #   f.puts([@hsh_info['id'], @hsh_info['title'], @hsh_info['artist_name']])
     #   f.print("\n  ^ SONG ^ \n")
     # end
+    byebug
     obj_name = "logs/songs/#{s_name}/#{@hsh_info['title']}-#{DateTime.now.strftime("%Y-%m-%d %H:%M:00s").to_s}"
     put_object(obj_name, body)
   end
