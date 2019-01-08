@@ -1,0 +1,119 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/-2019-01-08%2011:31:00s
+    body:
+      encoding: UTF-8
+      string: 'Tag,2,1990s,Pimple,crush,pizza,football,classes,parties,pimple,crush,pizza,football,classes,parties,,1,Oops
+        I did it Again,Britney Spears,0
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 5a4kITV8vPyj/+MSuPGM6Q==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190108T183117Z
+      X-Amz-Content-Sha256:
+      - f62bea025885d13c5af1712af55946294aabaeb85699eee61c291b02af09769a
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190108/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=cb60f50e4a44f4080d5a55881d7acbf83244e0268f8fd731b42b7a0d8d037ebd
+      Content-Length:
+      - '140'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - bDTv3GtilMhNiFAoKSkPuwPhSy5RSt2jRK+94mFe0NHdwbPxXiFiurGr+IT8Gl3evWK01FyDvSg=
+      X-Amz-Request-Id:
+      - 0DAE8A8F7BC25557
+      Date:
+      - Tue, 08 Jan 2019 18:31:08 GMT
+      X-Amz-Version-Id:
+      - d1p42OTZCZpjpWN0kk6sqAxO2EeRydEi
+      Etag:
+      - '"e5ae2421357cbcfca3ffe312b8f18ce9"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 08 Jan 2019 18:31:17 GMT
+- request:
+    method: put
+    uri: https://musictrends.s3.amazonaws.com/logs/tags/-2019-01-08%2011:32:00s
+    body:
+      encoding: UTF-8
+      string: 'Tag,2,1990s,Pimple,crush,pizza,football,classes,parties,pimple,crush,pizza,football,classes,parties,,1,Oops
+        I did it Again,Britney Spears,0
+
+'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.42.0 ruby/2.4.1 x86_64-darwin16 aws-sdk-s3/1.29.0
+      Expect:
+      - 100-continue
+      Content-Md5:
+      - 5a4kITV8vPyj/+MSuPGM6Q==
+      Host:
+      - musictrends.s3.amazonaws.com
+      X-Amz-Date:
+      - 20190108T183242Z
+      X-Amz-Content-Sha256:
+      - f62bea025885d13c5af1712af55946294aabaeb85699eee61c291b02af09769a
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJBSIQTEBEOHAW6JA/20190108/us-east-1/s3/aws4_request,
+        SignedHeaders=content-md5;expect;host;user-agent;x-amz-content-sha256;x-amz-date,
+        Signature=7b3dbd321b7fc1d9d1d66d8115c68535f0d4a9489116e628933504d9ab01c213
+      Content-Length:
+      - '140'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - bGetRxXjp/n4Gx2XKPDAFkACbGcVz2mHRwST0HFeBoB/gEpRTxY5Ubd8q9ZmV93wDNp/rcXn9wI=
+      X-Amz-Request-Id:
+      - 04DAFAA4D2C776AD
+      Date:
+      - Tue, 08 Jan 2019 18:32:32 GMT
+      X-Amz-Version-Id:
+      - 5PsPlgDKjbuFDMwvJbD_tWHuRZW99gxB
+      Etag:
+      - '"e5ae2421357cbcfca3ffe312b8f18ce9"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Tue, 08 Jan 2019 18:32:42 GMT
+recorded_with: VCR 4.0.0

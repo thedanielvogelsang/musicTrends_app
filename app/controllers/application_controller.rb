@@ -1,6 +1,6 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   # protect_from_forgery with: :null_session
-  # helper_method :check_id
+  helper_method :check_id
 
   def check_id
     unless request.headers['X-MT-TOKEN'] == ENV["X-MT-TOKEN"]

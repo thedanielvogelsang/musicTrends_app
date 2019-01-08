@@ -1,5 +1,5 @@
 class Api::V1::TagsController < ApplicationController
-  # before_action :check_id
+  before_action :check_id
 
   def index
     render json: Tag.paginate(page: params[:page], :per_page => 10), each_serializer: TagIndexSerializer
